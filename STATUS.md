@@ -425,3 +425,9 @@ suffix reserved for ports). Local HEAD and `origin/main` verified identical (`42
 **Open, by her explicit choice**: made public despite the licence of this library's own code (not the data, already MIT via Use This Instead/
 ATTRIBUTION.md) still being undecided (design question 2). No LICENSE file was added: inventing one was not asked, and AGENTS.md's
 dansMonoRepo -> horsMonoRepo checklist ("licence definie, justifiee") is not yet fully met, flagged rather than silently resolved by a default choice.
+
+## ModIcon provenance confirmed by the owner — 2026-09-27
+
+Virginie confirmed she made `Mod/About/ModIcon.png` herself ("je t'ai créé un modIcon normalement"), consistent with `STYLE_RIMWORLD.md`'s
+"ModIcon : contrôle, pas génération" rule. No new file appeared since the resize/`.ico` step earlier today; this is the same delivered icon
+already checked at 32px, resized to 128x128/20,792 bytes with her explicit go-ahead, and converted to `Art/ModIcon.ico`.
