@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Resolve This Instead</name>
+  <author>Nelim</author>
+  <packageId>nelim.resolvethisinstead</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>Lets mods keep working when a mod they support has been replaced by a maintained continuation.
+
+When a mod asks whether another mod is loaded (a patch guard, a MayRequire, ModsConfig.IsActive) and that mod is missing, this library answers yes if a known replacement of it is loaded. The replacements come from Use This Instead's data and from a small file that a mod can embed to vouch for a pair. An alias is applied only where a mod vouched for it, or where you switch it on in Mod options -> Resolve This Instead.
+
+Not affiliated with or endorsed by Mlie. Use This Instead, by Mlie (MIT), is required: its data is read, not copied.</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Mlie.UseThisInstead</packageId>
+      <displayName>Use This Instead</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3396308787</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>Mlie.UseThisInstead</li>
+  </loadAfter>
+</ModMetaData>

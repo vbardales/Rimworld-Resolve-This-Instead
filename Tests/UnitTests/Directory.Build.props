@@ -1,0 +1,1 @@
+<Project><PropertyGroup><BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)../../.build/unittests-obj/</BaseIntermediateOutputPath></PropertyGroup></Project>

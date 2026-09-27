@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RTI_SettingsCategory>Resolve This Instead</RTI_SettingsCategory>
+  <RTI_DataFound>Replacements from Use This Instead: {0} (data version {1}). Declared by mods: {2}.</RTI_DataFound>
+  <RTI_DataMissing>Use This Instead's data was not found: only the replacements that mods declare are used.</RTI_DataMissing>
+  <RTI_Problems>Problems reading the replacement data: {0} (hover for details).</RTI_Problems>
+  <RTI_RestartNote>Changes apply the next time the game starts.</RTI_RestartNote>
+  <RTI_ResetDefaults>Restore defaults</RTI_ResetDefaults>
+  <RTI_ListHeader>Replacements that apply in this game (checked: the replacement stands in for the missing mod):</RTI_ListHeader>
+  <RTI_ListEmpty>No replaced mod is missing while its replacement is loaded: nothing to decide.</RTI_ListEmpty>
+  <RTI_RowLabel>{0} → {1}</RTI_RowLabel>
+  <RTI_RowTip>Replaces: {0} ({1})
+By: {2} ({3})
+Source: {4}
+{5}</RTI_RowTip>
+  <RTI_SourceDeclared>declared by a mod</RTI_SourceDeclared>
+  <RTI_SourceProposed>proposed by Use This Instead</RTI_SourceProposed>
+  <RTI_CompatYes>declared compatible</RTI_CompatYes>
+  <RTI_CompatNo>declared NOT compatible</RTI_CompatNo>
+  <RTI_CompatUnknown>compatibility not vouched for</RTI_CompatUnknown>
+  <RTI_Ambiguous>{0}: several replacements are loaded, choose one</RTI_Ambiguous>
+  <RTI_Choose>Choose…</RTI_Choose>
+</LanguageData>

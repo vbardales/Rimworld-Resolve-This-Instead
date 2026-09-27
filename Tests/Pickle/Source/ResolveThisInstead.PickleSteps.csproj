@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>ResolveThisInstead.PickleSteps</AssemblyName>
+    <RootNamespace>ResolveThisInstead.PickleSteps</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+    <DebugType>none</DebugType>
+    <OutputPath>..\Mod\Pickle\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The consumer mod is its own assembly (Consumer/): compiling it here too would give the steps a second, empty copy of its static fields. -->
+    <Compile Remove="Consumer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*-*" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="RimWorks.Pickle.Ref" Version="4.*" ExcludeAssets="runtime" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The mod under test, for Runtime. Private=false: the game loads the real one, and a copy here would be a second ResolveThisInstead.dll. -->
+    <Reference Include="ResolveThisInstead">
+      <HintPath>..\..\..\Mod\Assemblies\ResolveThisInstead.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Its own separate mod now (Consumer/Mod), so the library can trust its assembly specifically for the runtime opt-in test without
+         also trusting the companion's (Mod/Pickle/Assemblies/ResolveThisInstead.PickleSteps.dll, this very project). -->
+    <Reference Include="ResolveThisInstead.TestConsumer">
+      <HintPath>..\Consumer\Mod\Assemblies\ResolveThisInstead.TestConsumer.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

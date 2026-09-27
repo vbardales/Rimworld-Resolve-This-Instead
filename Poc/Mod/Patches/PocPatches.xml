@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Name guard on the ORIGINAL display name, exactly like the failing guard of Alpha Mythology Renew. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Adaptive Storage Neolithic Module</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs</xpath>
+      <value>
+        <StatCategoryDef>
+          <defName>RTI_PocPatchGuard</defName>
+          <label>RTI POC patch guard</label>
+          <displayOrder>9992</displayOrder>
+        </StatCategoryDef>
+      </value>
+    </match>
+  </Operation>
+  <!-- Control: a name nobody has. Must NOT apply. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Resolve This Instead Nonexistent Mod</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs</xpath>
+      <value>
+        <StatCategoryDef>
+          <defName>RTI_PocPatchControl</defName>
+          <label>RTI POC patch control</label>
+          <displayOrder>9993</displayOrder>
+        </StatCategoryDef>
+      </value>
+    </match>
+  </Operation>
+  <!-- Provider guards. Need XML Extensions (Imranfish.XMLExtensions) and CCL PatchOperation Highlander loaded. -->
+  <!-- A. XML Extensions, packageId option, OLD id only: expected NOT applied (its own method does not know replacements). -->
+  <Operation Class="XmlExtensions.FindMod">
+    <packageId>true</packageId>
+    <mods>
+      <li>adaptive.storage.neolithic</li>
+    </mods>
+    <caseTrue>
+      <Operation Class="PatchOperationAdd">
+        <xpath>/Defs</xpath>
+        <value>
+          <StatCategoryDef>
+            <defName>RTI_PocXmlExtOldId</defName>
+            <label>RTI POC XmlExt old id</label>
+            <displayOrder>9994</displayOrder>
+          </StatCategoryDef>
+        </value>
+      </Operation>
+    </caseTrue>
+  </Operation>
+  <!-- B. XML Extensions, packageId option, OLD and NEW ids listed by the consumer (logic or): expected applied, no library needed. -->
+  <Operation Class="XmlExtensions.FindMod">
+    <packageId>true</packageId>
+    <mods>
+      <li>adaptive.storage.neolithic</li>
+      <li>nelim.adaptivestorageneolithic</li>
+    </mods>
+    <caseTrue>
+      <Operation Class="PatchOperationAdd">
+        <xpath>/Defs</xpath>
+        <value>
+          <StatCategoryDef>
+            <defName>RTI_PocXmlExtBoth</defName>
+            <label>RTI POC XmlExt both ids</label>
+            <displayOrder>9995</displayOrder>
+          </StatCategoryDef>
+        </value>
+      </Operation>
+    </caseTrue>
+  </Operation>
+  <!-- C. CCL Highlander FindModByID, OLD id: expected applied only through the ModMetaData.SamePackageId postfix of the POC. -->
+  <Operation Class="PatchOperation.FindModByID">
+    <mods>
+      <li>adaptive.storage.neolithic</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs</xpath>
+      <value>
+        <StatCategoryDef>
+          <defName>RTI_PocCclOldId</defName>
+          <label>RTI POC CCL old id</label>
+          <displayOrder>9996</displayOrder>
+        </StatCategoryDef>
+      </value>
+    </match>
+  </Operation>
+</Patch>

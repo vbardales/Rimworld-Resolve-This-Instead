@@ -1,0 +1,2 @@
+# Resolves the hard dependencies of the library that the staging script does not know. Read in every pass; activates nothing.
+Mlie.UseThisInstead   3396308787

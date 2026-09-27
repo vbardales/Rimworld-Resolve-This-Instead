@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RTI_SettingsCategory>Resolve This Instead</RTI_SettingsCategory>
+  <RTI_DataFound>Remplacements de Use This Instead : {0} (version des données {1}). Déclarés par des mods : {2}.</RTI_DataFound>
+  <RTI_DataMissing>Les données de Use This Instead sont introuvables : seuls les remplacements déclarés par des mods sont utilisés.</RTI_DataMissing>
+  <RTI_Problems>Problèmes de lecture des données de remplacement : {0} (survolez pour le détail).</RTI_Problems>
+  <RTI_RestartNote>Les changements s'appliquent au prochain démarrage du jeu.</RTI_RestartNote>
+  <RTI_ResetDefaults>Rétablir les valeurs par défaut</RTI_ResetDefaults>
+  <RTI_ListHeader>Remplacements qui s'appliquent dans cette partie (coché : le remplaçant tient lieu du mod absent) :</RTI_ListHeader>
+  <RTI_ListEmpty>Aucun mod remplacé n'est absent alors que son remplaçant est chargé : rien à décider.</RTI_ListEmpty>
+  <RTI_RowLabel>{0} → {1}</RTI_RowLabel>
+  <RTI_RowTip>Remplace : {0} ({1})
+Par : {2} ({3})
+Source : {4}
+{5}</RTI_RowTip>
+  <RTI_SourceDeclared>déclaré par un mod</RTI_SourceDeclared>
+  <RTI_SourceProposed>proposé par Use This Instead</RTI_SourceProposed>
+  <RTI_CompatYes>déclaré compatible</RTI_CompatYes>
+  <RTI_CompatNo>déclaré NON compatible</RTI_CompatNo>
+  <RTI_CompatUnknown>compatibilité non garantie</RTI_CompatUnknown>
+  <RTI_Ambiguous>{0} : plusieurs remplaçants sont chargés, choisissez-en un</RTI_Ambiguous>
+  <RTI_Choose>Choisir…</RTI_Choose>
+</LanguageData>

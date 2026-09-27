@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Optional shortcut to the mod settings. Hidden by default (neither visible nor greyed out);
+       a MainButtons customization mod such as RIMMSQOL can reveal it. -->
+  <MainButtonDef>
+    <defName>RTI_Settings</defName>
+    <label>Resolve This Instead</label>
+    <description>Open the Resolve This Instead settings: which replaced mods are stood in for by their replacement.</description>
+    <workerClass>ResolveThisInstead.MainButtonWorker_ResolveThisInsteadSettings</workerClass>
+    <buttonVisible>false</buttonVisible>
+    <validWithoutMap>true</validWithoutMap>
+    <order>999</order>
+  </MainButtonDef>
+</Defs>

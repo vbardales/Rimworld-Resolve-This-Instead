@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Name guard on the original's display name, as vanilla PatchOperationFindMod compares it. Declared pair: applies. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods><li>Adaptive Storage Neolithic Module</li></mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs</xpath>
+      <value>
+        <StatCategoryDef>
+          <defName>RTI_TestNameGuardDeclared</defName>
+          <label>RTI test name guard declared</label>
+          <displayOrder>9983</displayOrder>
+        </StatCategoryDef>
+      </value>
+    </match>
+  </Operation>
+  <!-- The failing guard of Alpha Mythology Renew: name of the original, page renamed "(Continued)". Only proposed by Use This Instead: off. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods><li>Nature's Pretty Sweet</li></mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs</xpath>
+      <value>
+        <StatCategoryDef>
+          <defName>RTI_TestNameGuardProposed</defName>
+          <label>RTI test name guard proposed</label>
+          <displayOrder>9984</displayOrder>
+        </StatCategoryDef>
+      </value>
+    </match>
+  </Operation>
+</Patch>

@@ -1,0 +1,18 @@
+# Compiled DirectDraw textures: never versioned.
+*.dds
+**/*.dds
+
+# Test evidence stays on disk, never in git. Short text history lives in docs/runs/, one line per run.
+**/Tests/Pickle/Evidence/
+evidence/
+
+# Build intermediates and tooling
+.build/
+bin/
+obj/
+.vs/
+.vscode/
+.idea/
+.claude/
+Thumbs.db
+desktop.ini

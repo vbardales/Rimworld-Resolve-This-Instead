@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>ResolveThisInstead.UnitTests</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <DebugType>none</DebugType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The engine compiles here on its own: no game, no game assembly needed to check the rules. -->
+    <Compile Include="../../Source/Engine/*.cs" LinkBase="Engine" />
+    <Compile Include="../../Source/ThirdParty/*.cs" LinkBase="ThirdParty" />
+  </ItemGroup>
+</Project>

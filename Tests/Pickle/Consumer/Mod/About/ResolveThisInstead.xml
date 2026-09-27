@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResolveThisInstead>
+  <!-- Same pair as the Pickle-tests companion's own file, but here WITH runtime opt-in: this mod's own C# (not just its XML) should also
+       see Adaptive Storage Neolithic Module as present through its Renew, once the library trusts THIS assembly for it. The companion's
+       own file (Tests/Pickle/Mod/About/ResolveThisInstead.xml) deliberately leaves runtime out, so its own steps keep seeing reality. -->
+  <alias>
+    <old><packageId>adaptive.storage.neolithic</packageId><name>Adaptive Storage Neolithic Module</name></old>
+    <successor><packageId>nelim.adaptivestorageneolithic</packageId></successor>
+    <compatible>true</compatible>
+    <runtime>true</runtime>
+    <note>Test declaration: this consumer's own runtime code is trusted for this pair.</note>
+  </alias>
+</ResolveThisInstead>

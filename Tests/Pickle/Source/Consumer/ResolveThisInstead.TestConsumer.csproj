@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>ResolveThisInstead.TestConsumer</AssemblyName>
+    <RootNamespace>ResolveThisInstead.TestConsumer</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <DebugType>none</DebugType>
+    <OutputPath>../../Consumer/Mod/Assemblies/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*-*" ExcludeAssets="runtime" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

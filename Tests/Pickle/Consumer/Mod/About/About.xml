@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Resolve This Instead - Test Consumer C</name>
+  <author>Nelim</author>
+  <packageId>nelim.resolvethisinstead.testconsumer</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>Plays a third mod "C" for Resolve This Instead's own tests: its constructor and its own runtime code both ask about the original Adaptive Storage Neolithic Module. Development only; never published.</description>
+  <modDependencies>
+    <li>
+      <packageId>nelim.resolvethisinstead</packageId>
+      <displayName>Resolve This Instead</displayName>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>nelim.resolvethisinstead</li>
+    <li>nelim.adaptivestorageneolithic</li>
+  </loadAfter>
+</ModMetaData>

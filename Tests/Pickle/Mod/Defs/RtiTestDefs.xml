@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Vouched by the embedded file, so the alias is on: the guard on the OLD package id is satisfied by the loaded Renew. -->
+  <StatCategoryDef MayRequire="adaptive.storage.neolithic">
+    <defName>RTI_TestMayRequireDeclared</defName>
+    <label>RTI test MayRequire declared</label>
+    <displayOrder>9980</displayOrder>
+  </StatCategoryDef>
+  <!-- A pair that only Use This Instead proposes (Nature's Pretty Sweet): off by default, so this must NOT appear. -->
+  <StatCategoryDef MayRequire="tkkntkkn.nps">
+    <defName>RTI_TestMayRequireProposed</defName>
+    <label>RTI test MayRequire proposed</label>
+    <displayOrder>9981</displayOrder>
+  </StatCategoryDef>
+  <!-- Control: an id nobody has. Must NOT appear. -->
+  <StatCategoryDef MayRequire="nelim.rti.nonexistent">
+    <defName>RTI_TestMayRequireControl</defName>
+    <label>RTI test MayRequire control</label>
+    <displayOrder>9982</displayOrder>
+  </StatCategoryDef>
+  <!-- Same synthetic ambiguous pair as 09-ambiguity.feature, through the real MayRequire door this time (not just Runtime.TargetForId
+       directly): an ambiguous pair resolves to neither successor, so this must NOT appear either, same as an unknown id. -->
+  <StatCategoryDef MayRequire="nelim.resolvethisinstead.test.ambiguous">
+    <defName>RTI_TestMayRequireAmbiguous</defName>
+    <label>RTI test MayRequire ambiguous</label>
+    <displayOrder>9983</displayOrder>
+  </StatCategoryDef>
+</Defs>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResolveThisInstead>
+  <!-- A consuming mod vouching for a pair: our own Renew is a drop-in for the original module. -->
+  <alias>
+    <old><packageId>adaptive.storage.neolithic</packageId><name>Adaptive Storage Neolithic Module</name></old>
+    <successor><packageId>nelim.adaptivestorageneolithic</packageId></successor>
+    <compatible>true</compatible>
+    <note>Test declaration.</note>
+  </alias>
+  <!-- Synthetic, not a real pair: a fictitious old id with two successors that are ALWAYS staged (our own hard dependencies), so this
+       ambiguity is available in every pass without downloading a second real "Continued" page (the real case, Lord of the Rims - Elves,
+       has only one of its two successors installed on this machine). Both compatible:true so both are enabled without the player touching
+       anything, exactly to isolate ambiguity resolution from the separate "is it enabled" question already covered elsewhere. -->
+  <alias>
+    <old><packageId>nelim.resolvethisinstead.test.ambiguous</packageId></old>
+    <successor><packageId>brrainz.harmony</packageId></successor>
+    <compatible>true</compatible>
+    <note>Synthetic ambiguity test, branch A. Not a real replacement.</note>
+  </alias>
+  <alias>
+    <old><packageId>nelim.resolvethisinstead.test.ambiguous</packageId></old>
+    <successor><packageId>Mlie.UseThisInstead</packageId></successor>
+    <compatible>true</compatible>
+    <note>Synthetic ambiguity test, branch B. Not a real replacement.</note>
+  </alias>
+</ResolveThisInstead>
