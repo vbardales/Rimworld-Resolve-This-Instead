@@ -1,9 +1,9 @@
 ---
 mod: Resolve This Instead
 packageId: nelim.resolvethisinstead
-repo: none yet (no git init, nothing published)
+repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
-git_isolation: inside the monorepo; standalone repository only when Virginie asks
+git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
 stage: dansMonoRepo
 settings_audit: partial
 localization: partial
@@ -413,3 +413,15 @@ all exit 0, first attempt. Confirms the shortcut fix (loading a save before the 
 one real run. Combined with the earlier green restart pair (`b0c6`): every scenario written so far has now passed in a real game at least once.
 Not yet played: French, the real Elves ambiguity (needs a download), a joint pass with AlphaMythologyRenew's own patches (nothing in them consumes
 the library yet).
+
+## Standalone repository created — 2026-09-27 (Virginie: public, "Rimworld-Resolve-This-Instead")
+
+`git init` inside `ResolveThisInstead/` (was untracked in the monorepo); parent `.gitignore` updated with the standard isolation entry and
+comment, matching AdaptiveStorageNeolithicRenew's/ArchitectStudio's pattern (no `git rm --cached` needed: never tracked there). One `desktop.ini`
+(Windows Explorer noise) caught before the first commit and added to this repo's own `.gitignore` too.
+Initial commit `420d9ee`, 68 files, pushed to `main` on a fresh public GitHub repository (`gh repo create --public --source=. --remote=origin --push`),
+account `vbardales`, same naming template as the other public repos (`Rimworld-<Name>`, no `Nelim's` prefix reserved for private mods, no `Renew`
+suffix reserved for ports). Local HEAD and `origin/main` verified identical (`420d9ee9033d2325f96bbd1f764d49679c13dc20`).
+**Open, by her explicit choice**: made public despite the licence of this library's own code (not the data, already MIT via Use This Instead/
+ATTRIBUTION.md) still being undecided (design question 2). No LICENSE file was added: inventing one was not asked, and AGENTS.md's
+dansMonoRepo -> horsMonoRepo checklist ("licence definie, justifiee") is not yet fully met, flagged rather than silently resolved by a default choice.
