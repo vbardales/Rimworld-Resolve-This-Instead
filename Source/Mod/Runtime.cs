@@ -17,6 +17,53 @@ namespace ResolveThisInstead
     {
         public const string LogTag = "[Resolve This Instead] ";
 
+        // Debug lines (every alias answer, phases, caller walk). Set from the settings; RimWorld's own "verbose logging" (dev mode) also turns them on.
+        public static volatile bool DebugEnabled = true;
+        private static readonly HashSet<string> seen = new HashSet<string>();
+        private static readonly Dictionary<string, int> failures = new Dictionary<string, int>();
+
+        public static void Info(string message) => Log.Message(LogTag + message);
+
+        public static void Debug(string message)
+        {
+            if (DebugEnabled || Prefs.LogVerbose)
+            {
+                Log.Message(LogTag + "[debug] " + message);
+            }
+        }
+
+        // One debug line per key: the doors are asked thousands of times while loading.
+        public static void DebugOnce(string key, string message)
+        {
+            lock (seen)
+            {
+                if (!seen.Add(key))
+                {
+                    return;
+                }
+            }
+            Debug(message);
+        }
+
+        // A patch must never break the game: log the exception with its stack (first three times per site, then silent) and carry on.
+        public static void Failure(string site, Exception ex)
+        {
+            int count;
+            lock (failures)
+            {
+                failures.TryGetValue(site, out count);
+                failures[site] = ++count;
+            }
+            if (count <= 3)
+            {
+                Log.Error(LogTag + "FAILED in " + site + " (#" + count + "): " + ex);
+            }
+            lock (Problems)
+            {
+                Problems.Add("exception in " + site + ": " + ex.GetType().Name + ": " + ex.Message);
+            }
+        }
+
         public sealed class EmbeddedInfo
         {
             public string ModName;
@@ -58,6 +105,7 @@ namespace ResolveThisInstead
 
         public static void Initialize(RtiSettings settings)
         {
+            Debug("Initialize start.");
             Choices = settings.ToChoices();
             loaded = new HashSet<string>(ModsConfig.ActiveModsInLoadOrder.Select(m => PackageIds.Normalize(m.PackageId)));
 
@@ -67,6 +115,7 @@ namespace ResolveThisInstead
             Catalog = catalog;
             Resolver = new AliasResolver(catalog);
             ClearCaches();
+            Debug("Initialize: " + loaded.Count + " loaded package ids, " + trustedForRuntime.Count + " trusted assemblies, " + Choices.Enabled.Count + " saved toggles, " + Choices.Picks.Count + " saved picks.");
             Log.Message(LogTag + "ready: " + catalog.Count + " replacements known, " + Embedded.Count + " mod(s) embed a file, Use This Instead's data "
                 + (UtiPath == null ? "not found" : "version " + UtiVersion) + ".");
         }
@@ -76,6 +125,7 @@ namespace ResolveThisInstead
         {
             Loading = true;
             PastConstructionPhase = true;
+            Info("loading started: aliases answer the engine (" + Catalog.Count + " replacements).");
         }
 
         // Called once, when the game has finished loading its data (before any StaticConstructorOnStartup runs). From here on an alias
@@ -83,6 +133,7 @@ namespace ResolveThisInstead
         public static void EndLoading()
         {
             Loading = false;
+            Debug("loading summary: " + idCache.Count(p => p.Value != null) + " id alias(es) and " + nameCache.Count(p => p.Value != null) + " name alias(es) answered during load.");
             ClearCaches();
             Log.Message(LogTag + "loading finished: aliases now answer only to a mod's own code, never the engine's.");
         }
@@ -114,6 +165,7 @@ namespace ResolveThisInstead
                 {
                     continue;
                 }
+                DebugOnce("caller:" + asm.GetName().Name, "runtime caller walk: " + asm.GetName().Name + " (trusted: " + trustedForRuntime.Contains(asm) + ")");
                 return asm;
             }
             return null;
@@ -141,6 +193,7 @@ namespace ResolveThisInstead
                 {
                     continue;
                 }
+                Debug("embedded file found in " + mod.Name + " (" + mod.PackageId + ").");
                 var info = new EmbeddedInfo { ModName = mod.Name, PackageId = mod.PackageId };
                 try
                 {
@@ -160,6 +213,7 @@ namespace ResolveThisInstead
                 catch (Exception ex)
                 {
                     info.Errors.Add("could not be read: " + ex.Message);
+                    Log.Error(LogTag + "reading the embedded file of " + mod.Name + " failed: " + ex);
                 }
                 foreach (string error in info.Errors)
                 {
@@ -183,6 +237,7 @@ namespace ResolveThisInstead
             {
                 UtiData.ParseResult data = UtiData.Parse(File.ReadAllText(UtiPath));
                 catalog.AddRange(data.Rules);
+                Debug("Use This Instead data read from " + UtiPath + ".");
                 UtiVersion = data.Version;
                 UtiRules = data.Rules.Count;
                 foreach (string error in data.Errors)
@@ -194,6 +249,7 @@ namespace ResolveThisInstead
             catch (Exception ex)
             {
                 UtiPath = null;
+                Log.Error(LogTag + "reading Use This Instead's data failed: " + ex);
                 Problems.Add("Use This Instead's data could not be read: " + ex.Message);
                 Log.Warning(LogTag + "Use This Instead's data could not be read: " + ex.Message);
             }

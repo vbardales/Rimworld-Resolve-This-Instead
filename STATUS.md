@@ -2,30 +2,60 @@
 mod: Resolve This Instead
 packageId: nelim.resolvethisinstead
 repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
+visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-stage: dansMonoRepo
+stage: port
+workflow_stage: horsMonoRepo
 settings_audit: partial
 localization: partial
 translation_en: partial
-translation_fr: partial
-automated_tests: engine 61/61 with data, 53/53 without (dotnet run); static checks 18/18 (Tests/Check-Mod.ps1)
-functional_tests: unverified; nothing has run in a game
-licence: not decided (data source Use This Instead, MIT)
-updated: 2026-09-26
+translation_fr: unchecked
+audit_at: 2026-10-01
+audit_revision: d5223bc plus uncommitted (debug logging in Source/Mod, two new keys EN/FR, rebuilt DLL 79855596cc0e, FRENCH_REVIEW.md, docs)
+automated_tests: engine 57/57 without data (dotnet run, 2026-10-01; 61/61 with data on 2026-09-26); static checks 18/18 (Tests/Check-Mod.ps1, 2026-10-01)
+functional_tests: Pickle played green on 2026-09-27 (lib-v8, three passes, exit 0, DLL before the debug logging) and the restart pair green (lib-v6); not replayed on the current tree; French not played
+licence: MIT (decided by the owner 2026-10-01; LICENSE added; data source Use This Instead is MIT too)
+licence_at: 2026-10-01; no upstream licence conflict (emipa606/UseThisInstead MIT, MiniJSON MIT notice kept)
+upstream_mod_remotes:
+  - https://github.com/emipa606/UseThisInstead
+publishedFileId: none (0.1.0 not pre-published; no About/PublishedFileId.txt)
+evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
-  - unverified: everything in game (POC and library suites requested, not played); settings window, persistence, RIMMSQOL route, English and French display
-  - unverified: the aliases do not leak once loading is over (steps written, not played)
-  - decision: this library's own licence
-  - owner only: telling Mlie when tests start; the ModIcon and Preview; the Workshop page before any consumer's 1.0.0
+  - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
+  - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
+  - unverified: French in game; French review by Virginie (FRENCH_REVIEW.md generated, nothing reviewed)
+  - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
+  - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
+updated: 2026-10-01
 ---
 
-Very start of development: the README holds the motivation, data findings and open questions. No code, no Mod/
+## 2026-10-01 — Audit (AUDIT.md reapplied)
+
+Retained after the follow-up of the same day: `stage: port`, `workflow_stage: horsMonoRepo` (the first pass of this audit retained `dansMonoRepo`) (was `dansMonoRepo` in the old free-form `stage`; the field now uses the six codes of AUDIT.md). First failing
+transition: `dansMonoRepo -> horsMonoRepo`: CHANGELOG.md absent (licence MIT decided and LICENSE added later the same day). Met in that transition: standalone
+git with public GitHub origin and a pushed first commit (`420d9ee`, plus `a601223`, `d5223bc`), STATUS.md, packageId/folder/repo naming, README.md and ATTRIBUTION.md, `upstream_mod_remotes` (now set).
+Later-stage facts kept as independent validations, not as a state: ModIcon delivered by the owner (provenance confirmed 2026-09-27), 128x128 / 20,792 bytes; no Preview yet; Pickle green on 2026-09-27.
+Checks done today: `dotnet run` unit tests 57/57; `Tests/Check-Mod.ps1` 18/18; `dotnet build -c Release` 0 warnings 0 errors. Nothing launched in a game by this session.
+
+Changes today:
+- Debug and error logging (`Source/Mod/Runtime.cs`, `RtiMod.cs`) because RTI is reported to crash: `Runtime.Info/Debug/DebugOnce/Failure`, a "Debug logs" checkbox (EN+FR keys `RTI_DebugLogs`, `RTI_DebugLogsTip`,
+  saved as `debugLogs`, default on while stabilising; RimWorld's verbose logging also enables it), every Harmony postfix/prefix and the constructor wrapped in try/catch (logged as `FAILED in <site>` with the stack, first 3 per site, game not broken).
+  Not run in a game: this is diagnostic code, not a fix. Flip `debugLogs` default to false before publishing.
+- Evidence trimmed on disk (68 MB to 1 MB): deleted lib-v6 three passes (red, superseded by green v8) and every `report.html`; kept lib-v8 x3 and the v6 restart pair (sole proof of persistence across a restart). No evidence was tracked in git, no `.dds` is tracked (`.gitignore` already covers `*.dds`). No archive of this mod in `pickle-reports-archive`.
+- `docs/runs/history.md` created (one line per run), evidence rule written in `Tests/Pickle/README.md`, `docs/PROTOCOLS-READ.md` rewritten with versions read and useless documents.
+- `FRENCH_REVIEW.md` + `Tests/Make-FrenchReview.js` (TRANSLATIONS.md). No pawn-agreeing text, so no gender switch.
+- Upstream: the library is original; the only source repository is Use This Instead (`emipa606/UseThisInstead`, MIT), whose data and MiniJSON it reuses. No fix to send back so far.
+- No `About/PublishedFileId.txt` found: 0.1.0 not pre-published, so no CHANGELOG entry is written.
+- Follow-up, same day (owner: "MIT", then "fais comme les autres mods et lis la doc"): `LICENSE` MIT (Copyright (c) 2026 Nelim, as ArchitectStudio) at the root and in `Mod/` (PUBLISHING.md: the notice must travel with the distribution), `Mod/ATTRIBUTION.md` copy (identical to the root one, compared with `cmp`), `CHANGELOG.md` with `## [Unreleased]` only, `.gitattributes` and `.editorconfig` copied from ArchitectStudio. Gate dansMonoRepo -> horsMonoRepo now met; next gate (horsMonoRepo -> ModIcon) needs finished development (crash open) and the build. PUBLISHING.md read in full up to line 658 (CI, tests and tooling traps below not needed yet). Not done, owner decision: GitHub topics (`gh repo edit ... --add-topic rimworld --add-topic rimworld-mod --add-topic mod`). Later gates not yet met: description lacks AI-generated / THANKS / `Source code on GitHub` lines, no Preview, no PUBLICATION.md.
+
+
+Superseded (kept, see the sections below; the library, tests and repository exist now). Original note: the README holds the motivation, data findings and open questions. No code, no Mod/
 folder, no About.xml, no ModIcon or Preview. First consumer: AlphaMythologyRenew (frozen, not edited from here).
 Upstream of the data: `emipa606/UseThisInstead` (public git, MIT); any fix worth returning goes as a PR there,
 only with Virginie's agreement. Not affiliated with Mlie.
 
-Session title: `Resolve This Instead / dansMonoRepo`.
+Session title: `resolvethisinstead / horsMonoRepo`.
 
 ## 2026-09-26
 

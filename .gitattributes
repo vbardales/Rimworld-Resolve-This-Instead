@@ -1,0 +1,18 @@
+# Normalise line endings in the repository, while each machine keeps its own.
+* text=auto
+
+*.cs   text diff=csharp
+*.xml  text
+*.md   text
+*.props text
+*.yml  text
+
+# Binaries: neither normalised nor diffed as text.
+*.png binary
+*.jpg binary
+*.dll binary
+
+# The Pickle dependency maps are read by bash inside WSL: a CR at the end of a `path:` line ends up in the
+# folder name ("...RestartPassCR/About" does not exist) and the staging dies before the game starts.
+# Git for Windows (autocrlf=true) rewrites them as CRLF at every checkout, so they are pinned to LF.
+*.map  text eol=lf

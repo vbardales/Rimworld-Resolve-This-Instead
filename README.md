@@ -104,7 +104,7 @@ Copyright (c) 2020 Mlie. Read with `gh api`; the file is kept outside this repos
 
 1. ~~Data source~~ **Decided 2026-09-26 (Virginie): hard dependency on Use This Instead, no shipped snapshot** (see "Where the data comes from"). No snapshot to generate or refresh.
 2. Credit and licence: MIT allows using the data with its notice; the notice and a link to Use This Instead go in the description, `THANKS`, and the Workshop
-   comment register (page 3396308787, Mlie). This library's own licence is to be decided.
+   comment register (page 3396308787, Mlie). This library is MIT licensed (decided 2026-10-01, see `LICENSE`).
 3. Dependency (Virginie's decision, relayed 2026-09-26: Alpha Mythology Renew will require it) versus embedded: dependency. Consequence: a public Workshop page before
    that mod's 1.0.0.
 4. ~~Scope of the alias~~ **Settled 2026-09-27**: never during Mod construction; unconditional while loading; afterward, only for a mod that

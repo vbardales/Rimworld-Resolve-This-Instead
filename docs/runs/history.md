@@ -1,0 +1,8 @@
+# Run history (one line per run; detail lives in git history of this file and in Tests/Pickle/Evidence on disk)
+
+- 2026-09-27 lib-v6 (3 passes: sans facultatifs, avec RIMMSQOL, avec neolithic et nps): exit 1, shortcut scenarios failed (no save loaded), alias scenarios green. Superseded by v8; evidence deleted 2026-10-01.
+- 2026-09-27 lib-v6 restart pair (`07-restart-write` then `08-restart-read`, avec neolithic et nps): exit 0, exitReason passed, 1 pass (seq1 + seq2). Kept: sole proof of persistence across a real restart (v8 did not replay it). Evidence: `Tests/Pickle/Evidence/lib-v6-avec-neolithic-nps-restart/`.
+- 2026-09-27 19:16 lib-v8 sans facultatifs (`8b5a`): exit 0, exitReason passed, 23 discovered, 9 passed, 14 skipped (conditions of other passes). Evidence: `lib-v8-sans-facultatifs/`.
+- 2026-09-27 19:19 lib-v8 avec RIMMSQOL (`0a20`): exit 0, exitReason passed, 23 discovered. Evidence: `lib-v8-avec-rimmsqol/`.
+- 2026-09-27 19:21 lib-v8 avec neolithic et nps (`4b89`): exit 0, exitReason passed, 21 discovered. Evidence: `lib-v8-avec-neolithic-nps/`.
+- 2026-10-01 off-game checks on the working tree (d5223bc + uncommitted debug logging): unit tests 57/57 without data, Tests/Check-Mod.ps1 18/18, `dotnet build -c Release` 0 warnings 0 errors. No Pickle run on this tree: the v8 runs above tested the DLL before the debug logging (v8 DLL not recorded; current DLL sha256 prefix `79855596cc0e`).

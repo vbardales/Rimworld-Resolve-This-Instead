@@ -12,6 +12,8 @@ namespace ResolveThisInstead
     {
         public Dictionary<string, bool> enabled = new Dictionary<string, bool>();
         public Dictionary<string, string> picks = new Dictionary<string, string>();
+        // Debug lines in the log (every alias answer, load phases, caller walk). On while the library is being stabilised.
+        public bool debugLogs = true;
 
         public PlayerChoices ToChoices()
         {
@@ -25,6 +27,7 @@ namespace ResolveThisInstead
         {
             enabled.Clear();
             picks.Clear();
+            debugLogs = true;
         }
 
         public override void ExposeData()
@@ -32,6 +35,7 @@ namespace ResolveThisInstead
             base.ExposeData();
             Scribe_Collections.Look(ref enabled, "enabled", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref picks, "picks", LookMode.Value, LookMode.Value);
+            Scribe_Values.Look(ref debugLogs, "debugLogs", true);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 // An older or hand-edited file must not break the game.
@@ -61,8 +65,30 @@ namespace ResolveThisInstead
         {
             Instance = this;
             Settings = GetSettings<RtiSettings>();
-            Runtime.Initialize(Settings);
-            new Harmony(PackageId).PatchAll(typeof(ResolveThisInsteadMod).Assembly);
+            Runtime.DebugEnabled = Settings.debugLogs;
+            Runtime.Info("Mod constructor start (RimWorld " + VersionControl.CurrentVersionString + ", " + ModsConfig.ActiveModsInLoadOrder.Count() + " active mods).");
+            try
+            {
+                Runtime.Initialize(Settings);
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("Initialize", ex);
+            }
+            try
+            {
+                var harmony = new Harmony(PackageId);
+                harmony.PatchAll(typeof(ResolveThisInsteadMod).Assembly);
+                foreach (var method in harmony.GetPatchedMethods())
+                {
+                    Runtime.Debug("patched: " + method.DeclaringType?.Name + "." + method.Name);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("PatchAll", ex);
+            }
+            Runtime.Info("Mod constructor done.");
         }
 
         public override string SettingsCategory() => "RTI_SettingsCategory".Translate();
@@ -111,6 +137,8 @@ namespace ResolveThisInstead
                 listing.Label("RTI_Problems".Translate(Runtime.Problems.Count), tooltip: string.Join("\n", Runtime.Problems.Take(10)));
             }
             listing.Label("RTI_RestartNote".Translate());
+            listing.CheckboxLabeled("RTI_DebugLogs".Translate(), ref Settings.debugLogs, "RTI_DebugLogsTip".Translate());
+            Runtime.DebugEnabled = Settings.debugLogs;
             if (listing.ButtonText("RTI_ResetDefaults".Translate()))
             {
                 Settings.ResetToDefaults();
@@ -208,14 +236,22 @@ namespace ResolveThisInstead
         // MayRequire, MayRequireAnyOf, LoadFolders-style lookups and AnyModActiveNoSuffix all go through here.
         public static void Postfix(string identifier, ref ModMetaData __result)
         {
-            if (__result != null || !Runtime.MayAnswer)
+            try
             {
-                return;
+                if (__result != null || !Runtime.MayAnswer)
+                {
+                    return;
+                }
+                string target = Runtime.TargetForId(identifier);
+                if (target != null)
+                {
+                    Runtime.DebugOnce("id:" + identifier, "GetActiveModWithIdentifier(" + identifier + ") answered by " + target);
+                    __result = Runtime.ActiveMod(target);
+                }
             }
-            string target = Runtime.TargetForId(identifier);
-            if (target != null)
+            catch (System.Exception ex)
             {
-                __result = Runtime.ActiveMod(target);
+                Runtime.Failure("GetActiveModWithIdentifier(" + identifier + ")", ex);
             }
         }
     }
@@ -226,9 +262,17 @@ namespace ResolveThisInstead
         // PatchOperationFindMod compares display names.
         public static void Postfix(string name, ref bool __result)
         {
-            if (!__result && Runtime.MayAnswer && Runtime.TargetForName(name) != null)
+            try
             {
-                __result = true;
+                if (!__result && Runtime.MayAnswer && Runtime.TargetForName(name) != null)
+                {
+                    Runtime.DebugOnce("name:" + name, "HasActiveModWithName(" + name + ") answered true");
+                    __result = true;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("HasActiveModWithName(" + name + ")", ex);
             }
         }
     }
@@ -240,9 +284,20 @@ namespace ResolveThisInstead
         // Runtime.IsLoaded already found loaded, so no recursive call into the (patched) method is needed here.
         public static void Postfix(string id, ref bool __result)
         {
-            if (!__result && Runtime.MayAnswer)
+            try
             {
-                __result = Runtime.TargetForId(id) != null;
+                if (!__result && Runtime.MayAnswer)
+                {
+                    __result = Runtime.TargetForId(id) != null;
+                    if (__result)
+                    {
+                        Runtime.DebugOnce("isactive:" + id, "ModsConfig.IsActive(" + id + ") answered true");
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("ModsConfig.IsActive(" + id + ")", ex);
             }
         }
     }
@@ -253,7 +308,14 @@ namespace ResolveThisInstead
         // Every Mod constructor has run: from here the game reads XML, patches and MayRequire, and the aliases start to answer.
         public static void Prefix()
         {
-            Runtime.BeginLoading();
+            try
+            {
+                Runtime.BeginLoading();
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("BeginLoading", ex);
+            }
         }
     }
 
@@ -263,7 +325,14 @@ namespace ResolveThisInstead
         // The data is loaded: from here on the real mod list is what everyone sees.
         public static void Prefix()
         {
-            Runtime.EndLoading();
+            try
+            {
+                Runtime.EndLoading();
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("EndLoading", ex);
+            }
         }
     }
 }

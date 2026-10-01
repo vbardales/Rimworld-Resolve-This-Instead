@@ -17,3 +17,11 @@ Everything here is `unverified` until a run is read.
 
 Requests: `Submit-PickleRun.ps1 -Mod ResolveThisInstead [-DepMap wsl-deps.avec-neolithic-nps.map|wsl-deps.avec-rimmsqol.map] -EvidenceDir ResolveThisInstead/Tests/Pickle/Evidence/<run>`;
 for the restart pair add `-Filter 07-restart-write -Then 08-restart-read` to the avec-neolithic-nps request.
+
+## Evidence to keep (rule of AGENTS.md, "Test evidence")
+
+`Tests/Pickle/Evidence/` is on disk only (gitignored). Per pass keep the latest run of the revision now in the repository: `junit.xml`, `summary.json`, `summary.md`,
+`evidence-complete.txt`, `Player.log` and `messages.ndjson` when small. Delete `report.html` (1.5 MB, a rendering of the same data) and every superseded pass once a newer
+one replaces it. Keep an older run only when it is the sole proof of a check the newest did not repeat: today the restart pair (`lib-v6-avec-neolithic-nps-restart`).
+Screenshots (`@review`) are kept only when a scenario produces some and they were opened. One text line per run goes into `docs/runs/history.md`, never a folder.
+Read `exitReason` and the discovered/played count before citing any report. Trimmed on 2026-10-01: 68 MB to 1 MB.

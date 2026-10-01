@@ -14,3 +14,7 @@ The JSON reader is the MiniJSON parser as shipped in Use This Instead's `Source/
 Patrick van Bergen), MIT licence; the full notice is kept at the top of the file. Changes: the namespace is `ResolveThisInstead.ThirdParty` and the class is `internal`
 (so that it cannot clash with another mod that embeds MiniJSON). The parsing code is unchanged. Found while testing: it throws on a truncated file despite its header,
 so the only call is wrapped in `UtiData.Parse`.
+
+## This library's own licence
+
+The code of Resolve This Instead is MIT licensed (see `LICENSE`, Copyright (c) 2026 Nelim). Third-party parts keep their own notices above.
