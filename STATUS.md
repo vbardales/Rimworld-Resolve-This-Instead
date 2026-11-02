@@ -5,7 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: settings[1.0.0]
+workflow_stage: localize[1.0.0]
 settings_audit: partial
 localization: partial
 translation_en: partial
@@ -18,17 +18,50 @@ licence: MIT (decided by the owner 2026-10-01; LICENSE added; data source Use Th
 licence_at: 2026-10-01; no upstream licence conflict (emipa606/UseThisInstead MIT, MiniJSON MIT notice kept)
 upstream_mod_remotes:
   - https://github.com/emipa606/UseThisInstead
-publishedFileId: none (0.1.0 not pre-published; no About/PublishedFileId.txt)
+publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
+  - defect: debugLogs defaults to true (diagnostic while the crash is open): flip to false before publication (Settings audit, usage review)
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
   - unverified: French in game; French review by Virginie (FRENCH_REVIEW.md generated, nothing reviewed)
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
 updated: 2026-11-02
-protocols_read_sha: 0780ca047aea43f76e2cd7beeb16ae995344952d
+protocols_read_sha: 558d207ad1711bdc1c86908481f18c08293b5f0e
 ---
+
+## Settings audit (AUDIT.md 5, MOD_SETTINGS.md): 2026-11-02, revision c65db21 (`Source/Mod/RtiMod.cs`, `Runtime.cs`, `Mod/Defs/MainButtonDefs.xml`, `Mod/Languages/*/Keyed/RTI.xml`)
+
+Status: `settings_audit: partial` (code and definition analysis and automated checks done; the in-game checks of the current DLL are `unverified`, made at `playTests`).
+
+Inventory and decision (5.a, 5.b): settings are useful, since the library cannot know which replacement a player accepts. Scope is global (mod settings, not per save). Every option applies at the next game start (the window says so: `RTI_RestartNote`; the choices are fixed for a load).
+- One checkbox per replacement that applies in this game (old mod absent, successor loaded). Default: on only where a consuming mod vouched for the pair (`compatible: yes`); a bare proposal from Use This Instead stays off; a pair declared not compatible stays off. Tooltip: replaces, by, source, compatibility.
+- A chooser when several successors are loaded (ambiguity: nothing resolves until the player picks).
+- "Debug logs" (`debugLogs`, tooltip `RTI_DebugLogsTip`): extra log lines. Added 2026-10-01 to find the reported crash; default currently on.
+- "Restore defaults" button; data status line (Use This Instead version, rule count, declared pairs) and a problems line.
+- Not exposed on purpose: provider modules, load-phase boundaries, trusted-caller opt-in (declared by the consuming mod, never by the player).
+
+Access (5.c, 5.d): Mod options -> Resolve This Instead (`SettingsCategory`), no customization mod needed. MainButtons shortcut `RTI_Settings`: `buttonVisible` false (checked by `Tests/Check-Mod.ps1`, 7 of 7 on 2026-11-02), worker class `MainButtonWorker_ResolveThisInsteadSettings` opens the same window and the same `Settings` instance.
+
+Usage review (5.e): checkboxes and one chooser only, so no free input and no boundary validation (the "Input validation" row is `n/a`). Labels, tooltips and the restart notice use stable `RTI_*` keys in English and French. Empty list shows `RTI_ListEmpty`, the list scrolls. Defect found: `debugLogs` defaults to true, to flip to false before publication (an extra log line per alias answer is not a good default for players).
+
+Expected and observed, per MOD_SETTINGS.md section 4 (observed = last played run, lib-v8 of 2026-09-27, DLL before the debug logging; evidence `Tests/Pickle/Evidence`, one line per run in `Docs/runs/history.md`):
+
+| Area | Observed |
+| --- | --- |
+| First use | Green: 01-loading, library loads after its dependencies, no startup error (lib-v8 x3). |
+| Primary access | Green: 04-settings-window opens, sees and edits the same instance. |
+| Actual effect | Green: 02-aliases (name guard, MayRequire, IsActive, mod list), 09-ambiguity. Debug logs toggle: not played. |
+| Persistence | Green: 07/08 restart pair (lib-v6): disabled alias and chosen successor survived a real restart. Not replayed on the current DLL. |
+| Input validation | n/a (checkboxes and a chooser). |
+| Defaults and upgrades | Restore defaults: not played. Older stored settings without `debugLogs`: not played (the field default applies). |
+| Optional dependencies | Green: avec neolithic et nps pass (4b89) and the sans facultatifs pass. |
+| Shortcut default | Green: 05-shortcut (hidden on a clean configuration); static check 7 of 7. |
+| Shortcut integration | Green: 06-rimmsqol (RIMMSQOL only, no other customization mod claimed). |
+| Runtime robustness | Not played on the current DLL: the exception logging added 2026-10-01 has never run in a game. |
+
+Commands: `powershell -NoProfile -ExecutionPolicy Bypass -File Tests\Check-Mod.ps1`; `dotnet run -c Release` in `Tests/UnitTests` (57 of 57 without data, 2026-10-01); Pickle tickets at `playTests`.
 
 ## 2026-11-02: Dependencies (AUDIT.md 4.g), revision b3c11d7
 
