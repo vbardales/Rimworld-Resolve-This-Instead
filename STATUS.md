@@ -5,7 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: declareDependencies[1.0.0]
+workflow_stage: settings[1.0.0]
 settings_audit: partial
 localization: partial
 translation_en: partial
@@ -29,6 +29,16 @@ remaining:
 updated: 2026-11-02
 protocols_read_sha: 0780ca047aea43f76e2cd7beeb16ae995344952d
 ---
+
+## 2026-11-02: Dependencies (AUDIT.md 4.g), revision b3c11d7
+
+- Hard dependencies (`modDependencies` and `loadAfter`, both in `Mod/About/About.xml`, Workshop URLs set):
+  - Harmony `brrainz.harmony` (steam 2009463077): the engine hooks are Harmony patches (`Source/Mod/Runtime.cs`, `RtiMod.cs`).
+  - Use This Instead `Mlie.UseThisInstead` (steam 3396308787): its `replacements.json` is the data source, no snapshot shipped (owner decision "dep dure", 2026-09-26).
+- Optional integrations: none. No `MayRequire`, no `PatchOperationFindMod`, no `LoadFolders.xml`, no `incompatibleWith`.
+- DLC: none referenced in `About.xml`, `Mod/Defs`, `Source/Mod` or `Source/Engine`. `supportedVersions`: 1.6 only (1.7 not declared before a green 1.7 run).
+- Load order: no cycle (this mod after Harmony and Use This Instead; Use This Instead itself requires Harmony). `scripts/sort-load-order.py` needs a staged Mods folder: it ran inside the Pickle stagings, whose three passes and restart pair were green on 2026-09-27 (library loads after its dependencies without startup errors).
+- 4.f animal-adding mods: not applicable (library, no animal).
 
 ## 2026-10-01 — Audit (AUDIT.md reapplied)
 
