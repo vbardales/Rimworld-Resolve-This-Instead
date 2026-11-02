@@ -5,8 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-stage: port
-workflow_stage: horsMonoRepo
+workflow_stage: code[1.0.0]
 settings_audit: partial
 localization: partial
 translation_en: partial
@@ -27,7 +26,8 @@ remaining:
   - unverified: French in game; French review by Virginie (FRENCH_REVIEW.md generated, nothing reviewed)
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
-updated: 2026-10-01
+updated: 2026-11-02
+protocols_read_sha: b65183edf16274bf13e55debad1f24410bf10181
 ---
 
 ## 2026-10-01 — Audit (AUDIT.md reapplied)
