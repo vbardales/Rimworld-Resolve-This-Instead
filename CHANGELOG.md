@@ -5,8 +5,7 @@ This file serves the repository and the writing of Steam patch notes; RimWorld d
 
 ## [Unreleased]
 
-First public content, not yet published to the Workshop (no `About/PublishedFileId.txt`: the 0.1.0 pre-publication that creates the item has not happened).
-When it does, a `## [0.1.0]` section ("creation of a publishIdFile") goes below this one with `Mod/` as it was at the sent commit.
+First public content, not yet released. The Workshop item exists (`Mod/About/PublishedFileId.txt`) since the 0.1.0 pre-publication below.
 
 ### Added
 
@@ -15,3 +14,7 @@ When it does, a `## [0.1.0]` section ("creation of a publishIdFile") goes below 
 - Settings (Mod options -> Resolve This Instead, plus a hidden MainButtons shortcut for RIMMSQOL): one checkbox per replacement, a chooser when several successors are loaded.
 - English and French interface.
 - "Debug logs" option and exception logging around every Harmony patch.
+
+## [0.1.0] - 2026-10-01
+
+Creation of a publishIdFile (pre-publication that creates the Workshop item). `Mod/` as at commit 6715612.
