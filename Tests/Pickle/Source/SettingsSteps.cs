@@ -95,12 +95,6 @@ namespace ResolveThisInstead.PickleSteps
         [When("Resolve This Instead disables the alias from {string} to {string}")]
         public void Disable(PickleContext ctx, string oldId, string newId) => Settings(ctx).enabled[FindRule(ctx, oldId, newId).Id] = false;
 
-        [When("Resolve This Instead enables the alias from {string} to {string}")]
-        public void Enable(PickleContext ctx, string oldId, string newId) => Settings(ctx).enabled[FindRule(ctx, oldId, newId).Id] = true;
-
-        [When("Resolve This Instead restores its defaults")]
-        public void Restore(PickleContext ctx) => Settings(ctx).ResetToDefaults();
-
         // --- ambiguity: several successors of the same old id, at the same distance -------------
 
         [Then("Resolve This Instead the pair from {string} is ambiguous between its loaded successors")]

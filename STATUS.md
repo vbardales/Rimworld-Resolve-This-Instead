@@ -5,7 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: writeTests[1.0.0]
+workflow_stage: playTests[1.0.0]
 settings_audit: partial
 localization: complete
 translation_en: complete
@@ -30,6 +30,16 @@ remaining:
 updated: 2026-11-03
 protocols_read_sha: d17469c9c6e799a503821573de9ce2aa18e057d6
 ---
+
+## writeTests record (AUDIT.md 7): 2026-11-03, revision 0ed0ebf plus the Tests/ changes of this commit
+
+- Scenarios (7.a): `Tests/TESTING.md`, one row per promised behaviour (library load, aliases only while data loads, declared pair, proposed pair stays off, runtime opt-in by caller, ambiguity, settings window, hidden shortcut, RIMMSQOL, restart persistence), plus the list of what is not covered. `PUBLICATION.md` does not exist yet (written at `writeDocs`); the rows follow the About.xml description and README.
+- Automated, rerun 2026-11-03 on library DLL sha256 `79855596cc0e` (unchanged since 2026-10-01, newer than every file under `Source/`): engine unit tests `dotnet run -c Release` in `Tests/UnitTests` 57 of 57 passed (real-data checks skipped, no `RTI_UTI_JSON`); `Tests/Check-Mod.ps1` 7 of 7; `Check-ModBasics` PASS; `Check-Translations` PASS; `Check-Steps` PASS (26 patterns, 72 step lines, none unused) (7.b, 7.f).
+- XML tests (7.c): `Check-ModBasics` (5 XML files, 1 def) and `Check-Translations`; no XML patches in `Mod/`.
+- Pickle suites (7.d): 9 feature files, 24 scenarios, not played on this tree. New scenario "Use This Instead's data was found" in `01-loading`; the three unused step patterns removed (two with no scenario to serve). Steps DLL rebuilt, sha256 `81c48c0335b9`. Local steps declared to NPT through TM on 2026-11-03 (no NPT session in the agent list). `@requires`: `nelim.adaptivestorageneolithic`, `mlie.naturesprettysweet`, `MalteSchulze.RIMMSqol` + `nelim.pickletools.rimmsqol`, `nelim.resolvethisinstead.testconsumer` (staged from `Tests/Pickle/Consumer`), each with its map (`Tests/Pickle/README.md`).
+- Not applicable (7.e): nothing declared not applicable.
+- Translations (7.g): complete, French reviewed by Virginie 2026-11-03.
+- Local scripts: `Tests/Check-Mod.ps1` justified in `scripts/LOCAL_SCRIPTS.md`, awaiting Audit's Validated.
 
 ## Translation audit (AUDIT.md 6, TRANSLATIONS.md): 2026-11-03, revision b3c11d7 plus the two French fixes below
 

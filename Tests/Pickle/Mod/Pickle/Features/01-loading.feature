@@ -13,3 +13,6 @@ Feature: Resolve This Instead loads
 
   Scenario: aliases answer only while the game loads its data
     Then Resolve This Instead: the load is over and aliases no longer answer
+
+  Scenario: Use This Instead's data was found
+    Then Resolve This Instead found Use This Instead's data

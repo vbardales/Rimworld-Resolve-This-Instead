@@ -6,3 +6,4 @@
 - 2026-09-27 19:19 lib-v8 avec RIMMSQOL (`0a20`): exit 0, exitReason passed, 23 discovered. Evidence: `lib-v8-avec-rimmsqol/`.
 - 2026-09-27 19:21 lib-v8 avec neolithic et nps (`4b89`): exit 0, exitReason passed, 21 discovered. Evidence: `lib-v8-avec-neolithic-nps/`.
 - 2026-10-01 off-game checks on the working tree (d5223bc + uncommitted debug logging): unit tests 57/57 without data, Tests/Check-Mod.ps1 18/18, `dotnet build -c Release` 0 warnings 0 errors. No Pickle run on this tree: the v8 runs above tested the DLL before the debug logging (v8 DLL not recorded; current DLL sha256 prefix `79855596cc0e`).
+- 2026-11-03 off-game checks on library DLL 79855596cc0e: unit tests 57/57, Check-Mod 7/7, Check-Steps 26 patterns / 72 step lines. Steps DLL rebuilt (81c48c0335b9). No Pickle run on this tree.
