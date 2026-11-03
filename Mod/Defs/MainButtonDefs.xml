@@ -5,7 +5,7 @@
   <MainButtonDef>
     <defName>RTI_Settings</defName>
     <label>Resolve This Instead</label>
-    <description>Open the Resolve This Instead settings: which replaced mods are stood in for by their replacement.</description>
+    <description>Open the Resolve This Instead settings to see which replaced mods are treated as present by their replacements.</description>
     <workerClass>ResolveThisInstead.MainButtonWorker_ResolveThisInsteadSettings</workerClass>
     <buttonVisible>false</buttonVisible>
     <validWithoutMap>true</validWithoutMap>
