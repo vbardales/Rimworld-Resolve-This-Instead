@@ -21,7 +21,6 @@ upstream_mod_remotes:
 publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
-  - defect: debugLogs defaults to true (diagnostic while the crash is open): flip to false before publication (Settings audit, usage review)
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
   - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
@@ -57,13 +56,13 @@ Status: `settings_audit: partial` (code and definition analysis and automated ch
 Inventory and decision (5.a, 5.b): settings are useful, since the library cannot know which replacement a player accepts. Scope is global (mod settings, not per save). Every option applies at the next game start (the window says so: `RTI_RestartNote`; the choices are fixed for a load).
 - One checkbox per replacement that applies in this game (old mod absent, successor loaded). Default: on only where a consuming mod vouched for the pair (`compatible: yes`); a bare proposal from Use This Instead stays off; a pair declared not compatible stays off. Tooltip: replaces, by, source, compatibility.
 - A chooser when several successors are loaded (ambiguity: nothing resolves until the player picks).
-- "Debug logs" (`debugLogs`, tooltip `RTI_DebugLogsTip`): extra log lines. Added 2026-10-01 to find the reported crash; default currently on.
+- "Debug logs" (`debugLogs`, tooltip `RTI_DebugLogsTip`): extra log lines. Added 2026-10-01 to find the reported crash; default off since 2026-11-03 (commit follows; the player or RimWorld verbose logging turns it on).
 - "Restore defaults" button; data status line (Use This Instead version, rule count, declared pairs) and a problems line.
 - Not exposed on purpose: provider modules, load-phase boundaries, trusted-caller opt-in (declared by the consuming mod, never by the player).
 
 Access (5.c, 5.d): Mod options -> Resolve This Instead (`SettingsCategory`), no customization mod needed. MainButtons shortcut `RTI_Settings`: `buttonVisible` false (checked by `Tests/Check-Mod.ps1`, 7 of 7 on 2026-11-02), worker class `MainButtonWorker_ResolveThisInsteadSettings` opens the same window and the same `Settings` instance.
 
-Usage review (5.e): checkboxes and one chooser only, so no free input and no boundary validation (the "Input validation" row is `n/a`). Labels, tooltips and the restart notice use stable `RTI_*` keys in English and French. Empty list shows `RTI_ListEmpty`, the list scrolls. Defect found: `debugLogs` defaults to true, to flip to false before publication (an extra log line per alias answer is not a good default for players).
+Usage review (5.e): checkboxes and one chooser only, so no free input and no boundary validation (the "Input validation" row is `n/a`). Labels, tooltips and the restart notice use stable `RTI_*` keys in English and French. Empty list shows `RTI_ListEmpty`, the list scrolls. `debugLogs` defaulted to true while the crash was being chased: fixed 2026-11-03, default false (code change, DLL `bf62ca694b24`).
 
 Expected and observed, per MOD_SETTINGS.md section 4 (observed = last played run, lib-v8 of 2026-09-27, DLL before the debug logging; evidence `Tests/Pickle/Evidence`, one line per run in `Docs/runs/history.md`):
 

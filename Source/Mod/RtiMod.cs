@@ -13,7 +13,7 @@ namespace ResolveThisInstead
         public Dictionary<string, bool> enabled = new Dictionary<string, bool>();
         public Dictionary<string, string> picks = new Dictionary<string, string>();
         // Debug lines in the log (every alias answer, load phases, caller walk). On while the library is being stabilised.
-        public bool debugLogs = true;
+        public bool debugLogs = false;
 
         public PlayerChoices ToChoices()
         {
@@ -27,7 +27,7 @@ namespace ResolveThisInstead
         {
             enabled.Clear();
             picks.Clear();
-            debugLogs = true;
+            debugLogs = false;
         }
 
         public override void ExposeData()
@@ -35,7 +35,7 @@ namespace ResolveThisInstead
             base.ExposeData();
             Scribe_Collections.Look(ref enabled, "enabled", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref picks, "picks", LookMode.Value, LookMode.Value);
-            Scribe_Values.Look(ref debugLogs, "debugLogs", true);
+            Scribe_Values.Look(ref debugLogs, "debugLogs", false);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 // An older or hand-edited file must not break the game.
