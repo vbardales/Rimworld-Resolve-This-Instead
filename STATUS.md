@@ -5,11 +5,11 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: localize[1.0.0]
+workflow_stage: writeTests[1.0.0]
 settings_audit: partial
 localization: partial
 translation_en: partial
-translation_fr: unchecked
+translation_fr: partial
 audit_at: 2026-10-01
 audit_revision: d5223bc plus uncommitted (debug logging in Source/Mod, two new keys EN/FR, rebuilt DLL 79855596cc0e, FRENCH_REVIEW.md, docs)
 automated_tests: engine 57/57 without data (dotnet run, 2026-10-01; 61/61 with data on 2026-09-26); static checks 18/18 (Tests/Check-Mod.ps1, 2026-10-01)
@@ -27,9 +27,18 @@ remaining:
   - unverified: French in game; French review by Virginie (FRENCH_REVIEW.md generated, nothing reviewed)
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
-updated: 2026-11-02
-protocols_read_sha: 558d207ad1711bdc1c86908481f18c08293b5f0e
+updated: 2026-11-03
+protocols_read_sha: d17469c9c6e799a503821573de9ce2aa18e057d6
 ---
+
+## Translation audit (AUDIT.md 6, TRANSLATIONS.md): 2026-11-03, revision b3c11d7 plus the two French fixes below
+
+Where the text lives (6.a): English is the source language: 19 `RTI_*` Keyed keys (`Mod/Languages/English/Keyed/RTI.xml`, all resolved by `.Translate()` in `Source/Mod/RtiMod.cs`, no hard-coded displayed text found; log lines stay English), the `RTI_Settings` MainButtonDef label and description (Def text is the English; French in `Languages/French/DefInjected/MainButtonDef/RTI.xml`), and the About.xml description (English only, Steam and mod list). French: `Languages/French/Keyed/RTI.xml` (same 19 keys) and the DefInjected file above. No other language, no LoadFolders, no optional integration text.
+Checks (6.b, 6.c, 2026-11-03): `Check-Translations.ps1` PASS (2 source texts, 19 Keyed calls, coverage, stale, duplicates, tokens); `Check-ModBasics.ps1` PASS. `Check-DefInjected.ps1` not applicable (the Def is this mod's own, covered by Check-Translations).
+French reading (6.d), every sentence read: no tu, no vous, no nous. Two imperatives addressed to the player were found and fixed: `RTI_Problems` "survolez pour le détail" now "détail au survol"; `RTI_Ambiguous` "choisissez-en un" now "il faut en choisir un". Gender (6.e): no text agrees with a pawn, so no gender switch and no player choice. "Mod" and the packageName/mod names stay as in the game.
+`FRENCH_REVIEW.md` (6.f): regenerated with `scripts/Make-FrenchReview.ps1 -RepoType original`; the Original column repeats the English (no other source language).
+Review by Virginie (6.g): not done. Required before leaving `writeTests`. The session never marks its own French as reviewed.
+Fields: `localization: partial`, `translation_en: partial`, `translation_fr: partial` (in-game raw keys, fallback text and clipping unverified until `playTests`; French review pending).
 
 ## Settings audit (AUDIT.md 5, MOD_SETTINGS.md): 2026-11-02, revision c65db21 (`Source/Mod/RtiMod.cs`, `Runtime.cs`, `Mod/Defs/MainButtonDefs.xml`, `Mod/Languages/*/Keyed/RTI.xml`)
 

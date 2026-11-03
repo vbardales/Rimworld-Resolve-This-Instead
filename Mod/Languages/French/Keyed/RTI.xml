@@ -3,7 +3,7 @@
   <RTI_SettingsCategory>Resolve This Instead</RTI_SettingsCategory>
   <RTI_DataFound>Remplacements de Use This Instead : {0} (version des données {1}). Déclarés par des mods : {2}.</RTI_DataFound>
   <RTI_DataMissing>Les données de Use This Instead sont introuvables : seuls les remplacements déclarés par des mods sont utilisés.</RTI_DataMissing>
-  <RTI_Problems>Problèmes de lecture des données de remplacement : {0} (survolez pour le détail).</RTI_Problems>
+  <RTI_Problems>Problèmes de lecture des données de remplacement : {0} (détail au survol).</RTI_Problems>
   <RTI_RestartNote>Les changements s'appliquent au prochain démarrage du jeu.</RTI_RestartNote>
   <RTI_DebugLogs>Journal de débogage</RTI_DebugLogs>
   <RTI_DebugLogsTip>Écrit des lignes de débogage supplémentaires dans le journal du jeu (chaque réponse d'alias, phases de chargement). Utile pour signaler un problème.</RTI_DebugLogsTip>
@@ -20,6 +20,6 @@ Source : {4}
   <RTI_CompatYes>déclaré compatible</RTI_CompatYes>
   <RTI_CompatNo>déclaré NON compatible</RTI_CompatNo>
   <RTI_CompatUnknown>compatibilité non garantie</RTI_CompatUnknown>
-  <RTI_Ambiguous>{0} : plusieurs remplaçants sont chargés, choisissez-en un</RTI_Ambiguous>
+  <RTI_Ambiguous>{0} : plusieurs remplaçants sont chargés, il faut en choisir un</RTI_Ambiguous>
   <RTI_Choose>Choisir…</RTI_Choose>
 </LanguageData>
