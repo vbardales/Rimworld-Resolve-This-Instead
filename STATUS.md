@@ -7,9 +7,9 @@ local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
 workflow_stage: writeTests[1.0.0]
 settings_audit: partial
-localization: partial
-translation_en: partial
-translation_fr: partial
+localization: complete
+translation_en: complete
+translation_fr: complete
 audit_at: 2026-10-01
 audit_revision: d5223bc plus uncommitted (debug logging in Source/Mod, two new keys EN/FR, rebuilt DLL 79855596cc0e, FRENCH_REVIEW.md, docs)
 automated_tests: engine 57/57 without data (dotnet run, 2026-10-01; 61/61 with data on 2026-09-26); static checks 18/18 (Tests/Check-Mod.ps1, 2026-10-01)
@@ -24,7 +24,7 @@ remaining:
   - defect: debugLogs defaults to true (diagnostic while the crash is open): flip to false before publication (Settings audit, usage review)
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
-  - unverified: French in game; French review by Virginie (FRENCH_REVIEW.md generated, nothing reviewed)
+  - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
 updated: 2026-11-03
@@ -37,8 +37,8 @@ Where the text lives (6.a): English is the source language: 19 `RTI_*` Keyed key
 Checks (6.b, 6.c, 2026-11-03): `Check-Translations.ps1` PASS (2 source texts, 19 Keyed calls, coverage, stale, duplicates, tokens); `Check-ModBasics.ps1` PASS. `Check-DefInjected.ps1` not applicable (the Def is this mod's own, covered by Check-Translations).
 French reading (6.d), every sentence read: no tu, no vous, no nous. Two imperatives addressed to the player were found and fixed: `RTI_Problems` "survolez pour le détail" now "détail au survol"; `RTI_Ambiguous` "choisissez-en un" now "il faut en choisir un". Gender (6.e): no text agrees with a pawn, so no gender switch and no player choice. "Mod" and the packageName/mod names stay as in the game.
 `FRENCH_REVIEW.md` (6.f): regenerated with `scripts/Make-FrenchReview.ps1 -RepoType original`; the Original column repeats the English (no other source language).
-Review by Virginie (6.g): not done. Required before leaving `writeTests`. The session never marks its own French as reviewed.
-Fields: `localization: partial`, `translation_en: partial`, `translation_fr: partial` (in-game raw keys, fallback text and clipping unverified until `playTests`; French review pending).
+Review by Virginie (6.g): done 2026-11-03 on revision 0ed0ebf (she validated FRENCH_REVIEW.md as it stands). Corrections made before her review, each accepted by her after ChatGPT reviews (six pages, last one without finding): RTI_Settings.description FR and EN, RTI_DebugLogsTip, RTI_CompatNo, RTI_ListHeader. The session did not mark its own French as reviewed.
+Fields (2026-11-03): `localization`, `translation_en`, `translation_fr` all `complete`. Raw keys, fallback text and clipping in game stay `unverified` until `playTests`.
 
 ## Settings audit (AUDIT.md 5, MOD_SETTINGS.md): 2026-11-02, revision c65db21 (`Source/Mod/RtiMod.cs`, `Runtime.cs`, `Mod/Defs/MainButtonDefs.xml`, `Mod/Languages/*/Keyed/RTI.xml`)
 
