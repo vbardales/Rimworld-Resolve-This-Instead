@@ -21,6 +21,7 @@ upstream_mod_remotes:
 publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
+  - ticket: initial Pickle pass filed 2026-11-03 on 4baddbb (DLL bf62ca694b24): sans facultatifs 20261103-090609-918-8000, avec RIMMSQOL 20261103-090618-088-c9ec, avec neolithic et nps 20261103-090619-183-cf55, restart pair 20261103-090620-263-3a51; evidence Tests/Pickle/Inbox/v9-*; wait for RUN_DONE (owner session local_f944552f), do not touch Mod/ or Source/; then 8.l evidence + tested_on, 8.m code review (Opus sub-agent, once), 8.n
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
   - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
