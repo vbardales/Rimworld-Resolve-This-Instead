@@ -18,7 +18,7 @@ Source : {4}
   <RTI_SourceDeclared>déclaré par un mod</RTI_SourceDeclared>
   <RTI_SourceProposed>proposé par Use This Instead</RTI_SourceProposed>
   <RTI_CompatYes>déclaré compatible</RTI_CompatYes>
-  <RTI_CompatNo>déclaré NON compatible</RTI_CompatNo>
+  <RTI_CompatNo>déclaré non compatible</RTI_CompatNo>
   <RTI_CompatUnknown>compatibilité non garantie</RTI_CompatUnknown>
   <RTI_Ambiguous>{0} : plusieurs remplaçants sont chargés, il faut en choisir un</RTI_Ambiguous>
   <RTI_Choose>Choisir…</RTI_Choose>
