@@ -8,7 +8,7 @@
   <RTI_DebugLogs>Journal de débogage</RTI_DebugLogs>
   <RTI_DebugLogsTip>Écrit des lignes de débogage supplémentaires dans le journal du jeu (chaque réponse d'alias et chaque phase de chargement). Utile pour signaler un problème.</RTI_DebugLogsTip>
   <RTI_ResetDefaults>Rétablir les valeurs par défaut</RTI_ResetDefaults>
-  <RTI_ListHeader>Remplacements qui s'appliquent dans cette partie (coché : le remplaçant tient lieu du mod absent) :</RTI_ListHeader>
+  <RTI_ListHeader>Remplacements qui s'appliquent dans cette partie (case cochée : le remplaçant tient lieu du mod absent) :</RTI_ListHeader>
   <RTI_ListEmpty>Aucun mod remplacé n'est absent alors que son remplaçant est chargé : rien à décider.</RTI_ListEmpty>
   <RTI_RowLabel>{0} → {1}</RTI_RowLabel>
   <RTI_RowTip>Remplace : {0} ({1})
