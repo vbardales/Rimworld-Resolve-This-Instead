@@ -20,10 +20,11 @@ upstream_mod_remotes:
   - https://github.com/emipa606/UseThisInstead
 workshop_required_items: n/a, not released yet (pre-publication 0.1.0 only; owner decision 2026-11-10 "on verra en 1.0.0"; manual pose at prepareRelease/publish)
 publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
+tested_on: 2026-11-10 pickle 5fc0553 (DLL bf62ca694b24): v9 passes 2026-11-06 plus restart pair v10 green (ticket 20261110-175630-932-319a); French and English in game not played
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
-  - ticket: restart pair refiled 2026-11-10 on 5fc0553 (DLL bf62ca694b24): 20261110-175630-932-319a, evidence Tests/Pickle/Inbox/v10-restart; wait for RUN_DONE, do not touch Mod/ or Source/. v9 passes read 2026-11-10 (rimmsqol green; sans-facultatifs and neolithic-nps each one explained red, see Docs/runs/history.md; Evidence/v9-*). Then 8.l tested_on, 8.m code review (Opus sub-agent, once), 8.n
+  - 8.m: code review (Opus sub-agent, once) over Source/ since 0.1.0 running 2026-11-10; then code_review_sha, 8.n
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
   - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
