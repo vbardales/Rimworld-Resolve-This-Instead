@@ -25,7 +25,7 @@ code_review_sha: d92e5f9f1307eb2ba0c8ac3941a2b6dec4a8f3b7
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
-  - 8.h/8.i: French and English in game (settings window, raw keys, clipping, Player.log) not played: needs a Pickle -Language fr ticket, or a scenario declared not applicable by Virginie; then 8.n
+  - ticket: French pass (01-loading, 04-settings-window, 05-shortcut, -Language French) filed 2026-11-10 on 02b87fe (DLL 61e65ee28264): 20261110-203439-273-9cde, evidence Tests/Pickle/Inbox/v12-french; wait for RUN_DONE, do not touch Mod/ or Source/; then read Player.log for raw keys and accented fallback (PICKLE.md "Lecture d une interface traduite"), 8.h/8.i, 8.n
   - defect (code review 2026-11-10, logged not fixed): #4 caller walk may read Assembly-CSharp if Harmony maps replacement frames to originals (runtime opt-in would silently fail; confirm with an opted-in caller); #7 a proposal A->B with only C loaded never listed, name-only rules skip ambiguity check; #8 UTI data read in the constructor can be stale or half-written (move to BeginLoading, FileShare.ReadWrite); #9 ActiveMod scans the mod list per alias hit (index it); #10 Loading cleared only by one prefix (add a backstop postfix); UtiPath logged in full with debug on
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
