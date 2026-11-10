@@ -5,7 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: declareDependencies[1.0.0]
+workflow_stage: playTests[1.0.0]
 settings_audit: partial
 localization: complete
 translation_en: complete
@@ -18,18 +18,19 @@ licence: MIT (decided by the owner 2026-10-01; LICENSE added; data source Use Th
 licence_at: 2026-10-01; no upstream licence conflict (emipa606/UseThisInstead MIT, MiniJSON MIT notice kept)
 upstream_mod_remotes:
   - https://github.com/emipa606/UseThisInstead
+workshop_required_items: n/a, not released yet (pre-publication 0.1.0 only; owner decision 2026-11-10 "on verra en 1.0.0"; manual pose at prepareRelease/publish)
 publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
-  - 4.g: record `workshop_required_items: n/a, not released yet` (never released, pre-publication 0.1.0 only; AUDIT.md 4.g, owner 2026-11-10), then 4.h to settings; then playTests resumes (v9 Pickle results in Tests/Pickle/Inbox unread: rimmsqol green, sans-facultatifs red world camera timeout, neolithic-nps red restart-read in-process, restart seq2 killed 143)
-  - ticket: initial Pickle pass filed 2026-11-03 on 4baddbb (DLL bf62ca694b24): sans facultatifs 20261103-090609-918-8000, avec RIMMSQOL 20261103-090618-088-c9ec, avec neolithic et nps 20261103-090619-183-cf55, restart pair 20261103-090620-263-3a51; evidence Tests/Pickle/Inbox/v9-*; wait for RUN_DONE (owner session local_f944552f), do not touch Mod/ or Source/; then 8.l evidence + tested_on, 8.m code review (Opus sub-agent, once), 8.n
+  - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
+  - ticket (results landed, not triaged: avec-rimmsqol green; sans-facultatifs red, world camera scenario timed out in 5 s; avec-neolithic-nps red, restart-read ran in the same process; restart pair seq1 green, seq2 killed 143; refile the pair with -Filter restart-write -Then restart-read and the camera scenario alone): initial Pickle pass filed 2026-11-03 on 4baddbb (DLL bf62ca694b24): sans facultatifs 20261103-090609-918-8000, avec RIMMSQOL 20261103-090618-088-c9ec, avec neolithic et nps 20261103-090619-183-cf55, restart pair 20261103-090620-263-3a51; evidence Tests/Pickle/Inbox/v9-*; wait for RUN_DONE (owner session local_f944552f), do not touch Mod/ or Source/; then 8.l evidence + tested_on, 8.m code review (Opus sub-agent, once), 8.n
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
   - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
 updated: 2026-11-10
-protocols_read_sha: f81cf305355133d1ed901443c9f282d4670c7688
+protocols_read_sha: a7e8aac7cf5e8de6134ff708b0b88530f6738417
 ---
 
 ## writeTests record (AUDIT.md 7): 2026-11-03, revision 0ed0ebf plus the Tests/ changes of this commit
