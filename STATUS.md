@@ -24,7 +24,8 @@ tested_on: 2026-11-10 pickle 5fc0553 (DLL bf62ca694b24): v9 passes 2026-11-06 pl
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
-  - 8.m: code review (Opus sub-agent, once) over Source/ since 0.1.0 running 2026-11-10; then code_review_sha, 8.n
+  - ticket: avec neolithic et nps after the code-review fixes, filed 2026-11-10 on 5b39256 (DLL 61e65ee28264): 20261110-193018-178-5e20, evidence Tests/Pickle/Inbox/v11-neolithic-nps; wait for RUN_DONE, do not touch Mod/ or Source/; then code_review_sha (8.m), 8.n
+  - defect (code review 2026-11-10, logged not fixed): #4 caller walk may read Assembly-CSharp if Harmony maps replacement frames to originals (runtime opt-in would silently fail; confirm with an opted-in caller); #7 a proposal A->B with only C loaded never listed, name-only rules skip ambiguity check; #8 UTI data read in the constructor can be stale or half-written (move to BeginLoading, FileShare.ReadWrite); #9 ActiveMod scans the mod list per alias hit (index it); #10 Loading cleared only by one prefix (add a backstop postfix); UtiPath logged in full with debug on
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
   - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
