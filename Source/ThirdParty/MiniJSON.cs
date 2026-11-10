@@ -269,6 +269,9 @@ internal static class Json
                         return null;
                     case TOKEN.COMMA:
                         continue;
+                    case TOKEN.COLON:
+                        // a stray colon is never consumed by ParseByToken: without this the loop never ends (RTI fix, 2026-11-10)
+                        return null;
                     case TOKEN.SQUARED_CLOSE:
                         parsing = false;
                         break;
@@ -289,6 +292,27 @@ internal static class Json
             return ParseByToken(nextToken);
         }
 
+        // RTI fix, 2026-11-10: a file nested deeper than this is refused (null) instead of overflowing the stack.
+        private const int MaxDepth = 64;
+        private int depth;
+
+        private object Nested(System.Func<object> parse)
+        {
+            if (depth >= MaxDepth)
+            {
+                return null;
+            }
+            depth++;
+            try
+            {
+                return parse();
+            }
+            finally
+            {
+                depth--;
+            }
+        }
+
         private object ParseByToken(TOKEN token)
         {
             switch (token)
@@ -298,9 +322,9 @@ internal static class Json
                 case TOKEN.NUMBER:
                     return ParseNumber();
                 case TOKEN.CURLY_OPEN:
-                    return ParseObject();
+                    return Nested(() => ParseObject());
                 case TOKEN.SQUARED_OPEN:
-                    return ParseArray();
+                    return Nested(() => ParseArray());
                 case TOKEN.TRUE:
                     return true;
                 case TOKEN.FALSE:

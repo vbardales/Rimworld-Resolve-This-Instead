@@ -132,9 +132,14 @@ namespace ResolveThisInstead
             listing.Label(Runtime.UtiPath == null
                 ? "RTI_DataMissing".Translate()
                 : "RTI_DataFound".Translate(Runtime.UtiRules, Runtime.UtiVersion ?? "?", Runtime.Embedded.Sum(e => e.Rules)));
-            if (Runtime.Problems.Count > 0)
+            string[] problems;
+            lock (Runtime.Problems)
             {
-                listing.Label("RTI_Problems".Translate(Runtime.Problems.Count), tooltip: string.Join("\n", Runtime.Problems.Take(10)));
+                problems = Runtime.Problems.ToArray();
+            }
+            if (problems.Length > 0)
+            {
+                listing.Label("RTI_Problems".Translate(problems.Length), tooltip: string.Join("\n", problems.Take(10)));
             }
             listing.Label("RTI_RestartNote".Translate());
             listing.CheckboxLabeled("RTI_DebugLogs".Translate(), ref Settings.debugLogs, "RTI_DebugLogsTip".Translate());

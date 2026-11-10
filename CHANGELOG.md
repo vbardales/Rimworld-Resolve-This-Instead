@@ -15,6 +15,14 @@ First public content, not yet released. The Workshop item exists (`Mod/About/Pub
 - English and French interface.
 - "Debug logs" option and exception logging around every Harmony patch.
 
+### Fixed
+
+- A malformed or absurdly nested Use This Instead data file can no longer hang or crash the game start (stray colon in an array, unbounded nesting).
+- The alias caches are now safe against concurrent callers while the game loads.
+- No stack walk on every "is mod loaded?" call after loading when no mod asked for the runtime window.
+- The exception cap now counts per patched method (it counted per mod id), and the problems list is capped.
+- The settings window copies the problems list under a lock before reading it.
+
 ## [0.1.0] - 2026-10-01
 
 Creation of a publishIdFile (pre-publication that creates the Workshop item). `Mod/` as at commit 6715612.

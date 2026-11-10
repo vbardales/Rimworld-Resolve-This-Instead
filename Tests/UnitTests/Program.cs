@@ -33,6 +33,8 @@ internal static class Program
         Check(r.Rules[1].OldPackageId == "1797397487", "UTI file: a package id written as a number is read as text");
         Check(r.Rules[2].OldPackageId == "" && r.Rules[2].OldName == "No Package Id", "UTI file: a rule with no old package id is kept by name");
         Check(UtiData.Parse("").Errors.Count == 1 && UtiData.Parse("not json").Errors.Count == 1 && UtiData.Parse("{}").Errors.Count == 1 && UtiData.Parse("[1,2]").Errors.Count == 1, "UTI file: empty, non-JSON, no rules and a bare array are reported, not thrown");
+        Check(UtiData.Parse("[1 : 2]").Errors.Count == 1, "UTI file: a stray colon in an array is reported and does not loop forever");
+        Check(UtiData.Parse(new string('[', 5000)).Errors.Count == 1, "UTI file: absurdly deep nesting is refused, not a stack overflow");
         Check(UtiData.Parse("{\"rules\":[{\"oldPackageId\":\"a\",\"newPackageId\":\"b\"}").Rules.Count == 0, "UTI file: a truncated file gives no rule and does not throw");
         var mods = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("Ludeon.RimWorld", "C:/game"), new KeyValuePair<string, string>("Mlie.UseThisInstead", "C:/w/3396308787/") };
         Check(UtiData.Locate(mods, p => p == "C:/w/3396308787/replacements.json") == "C:/w/3396308787/replacements.json", "UTI file: found at the root of the UTI mod folder, a trailing slash tolerated");

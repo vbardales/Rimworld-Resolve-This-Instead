@@ -48,19 +48,25 @@ namespace ResolveThisInstead
         // A patch must never break the game: log the exception with its stack (first three times per site, then silent) and carry on.
         public static void Failure(string site, Exception ex)
         {
+            // The cap counts per patched door, not per id: "IsActive(x)" and "IsActive(y)" are the same site.
+            int paren = site.IndexOf('(');
+            string door = paren > 0 ? site.Substring(0, paren) : site;
             int count;
             lock (failures)
             {
-                failures.TryGetValue(site, out count);
-                failures[site] = ++count;
+                failures.TryGetValue(door, out count);
+                failures[door] = ++count;
             }
             if (count <= 3)
             {
                 Log.Error(LogTag + "FAILED in " + site + " (#" + count + "): " + ex);
-            }
-            lock (Problems)
-            {
-                Problems.Add("exception in " + site + ": " + ex.GetType().Name + ": " + ex.Message);
+                lock (Problems)
+                {
+                    if (Problems.Count < 100)
+                    {
+                        Problems.Add("exception in " + site + ": " + ex.GetType().Name + ": " + ex.Message);
+                    }
+                }
             }
         }
 
@@ -100,6 +106,8 @@ namespace ResolveThisInstead
         private static HashSet<string> loaded = new HashSet<string>();
         private static readonly Dictionary<string, string> idCache = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> nameCache = new Dictionary<string, string>();
+        // The caches are written from the Harmony postfixes, which any thread may reach while the game loads.
+        private static readonly object cacheLock = new object();
 
         public static bool IsLoaded(string normalizedPackageId) => loaded.Contains(normalizedPackageId);
 
@@ -133,13 +141,17 @@ namespace ResolveThisInstead
         public static void EndLoading()
         {
             Loading = false;
-            Debug("loading summary: " + idCache.Count(p => p.Value != null) + " id alias(es) and " + nameCache.Count(p => p.Value != null) + " name alias(es) answered during load.");
+            lock (cacheLock)
+            {
+                Debug("loading summary: " + idCache.Count(p => p.Value != null) + " id alias(es) and " + nameCache.Count(p => p.Value != null) + " name alias(es) answered during load.");
+            }
             ClearCaches();
             Log.Message(LogTag + "loading finished: aliases now answer only to a mod's own code, never the engine's.");
         }
 
         // Whether an alias may answer right now. See the three windows above.
-        public static bool MayAnswer => Loading || (PastConstructionPhase && CallerIsTrustedForRuntime());
+        // No stack walk unless a mod asked for the runtime window: after loading, almost every call stays a plain "false".
+        public static bool MayAnswer => Loading || (PastConstructionPhase && trustedForRuntime.Count > 0 && CallerIsTrustedForRuntime());
 
         private static readonly Assembly OwnAssembly = typeof(Runtime).Assembly;
         private static Assembly harmonyAssembly;
@@ -165,7 +177,10 @@ namespace ResolveThisInstead
                 {
                     continue;
                 }
-                DebugOnce("caller:" + asm.GetName().Name, "runtime caller walk: " + asm.GetName().Name + " (trusted: " + trustedForRuntime.Contains(asm) + ")");
+                if (DebugEnabled || Prefs.LogVerbose)
+                {
+                    DebugOnce("caller:" + asm.GetName().Name, "runtime caller walk: " + asm.GetName().Name + " (trusted: " + trustedForRuntime.Contains(asm) + ")");
+                }
                 return asm;
             }
             return null;
@@ -179,8 +194,11 @@ namespace ResolveThisInstead
 
         public static void ClearCaches()
         {
-            idCache.Clear();
-            nameCache.Clear();
+            lock (cacheLock)
+            {
+                idCache.Clear();
+                nameCache.Clear();
+            }
         }
 
         private static void ReadEmbeddedFiles(AliasCatalog catalog)
@@ -263,13 +281,16 @@ namespace ResolveThisInstead
             {
                 return null;
             }
-            if (!idCache.TryGetValue(key, out string target))
+            lock (cacheLock)
             {
-                Resolution res = Resolver.ResolvePackageId(key, IsLoaded, Choices);
-                target = res.IsAlias ? res.Target : null;
-                idCache[key] = target;
+                if (!idCache.TryGetValue(key, out string target))
+                {
+                    Resolution res = Resolver.ResolvePackageId(key, IsLoaded, Choices);
+                    target = res.IsAlias ? res.Target : null;
+                    idCache[key] = target;
+                }
+                return target;
             }
-            return target;
         }
 
         // The same, for a display name (what PatchOperationFindMod compares).
@@ -279,13 +300,16 @@ namespace ResolveThisInstead
             {
                 return null;
             }
-            if (!nameCache.TryGetValue(name, out string target))
+            lock (cacheLock)
             {
-                Resolution res = Resolver.ResolveName(name, IsLoaded, Choices);
-                target = res.IsAlias ? res.Target : null;
-                nameCache[name] = target;
+                if (!nameCache.TryGetValue(name, out string target))
+                {
+                    Resolution res = Resolver.ResolveName(name, IsLoaded, Choices);
+                    target = res.IsAlias ? res.Target : null;
+                    nameCache[name] = target;
+                }
+                return target;
             }
-            return target;
         }
 
         public static ModMetaData ActiveMod(string normalizedPackageId)
