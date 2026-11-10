@@ -1,0 +1,19 @@
+{
+  "panel": {
+    "title": "Resolve This Instead",
+    "titleParts": [
+      { "text": "Resolve This Instead" }
+    ],
+    "description": "Let maintained continuations stand in for the mods they replace."
+  },
+  "background": { "file": "Preview-source.png" },
+  "icon": { "file": "ModIcon-source.png" },
+  "echo": { "file": "echo-concept.png" },
+  "palette": {
+    "veil": "#253338",
+    "inkPrimary": "#F1F5F2",
+    "inkSecondary": "#A9CCC3",
+    "accent": "#42C7B3",
+    "badgeInk": "#11191B"
+  }
+}
