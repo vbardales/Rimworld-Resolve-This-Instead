@@ -20,7 +20,7 @@ upstream_mod_remotes:
   - https://github.com/emipa606/UseThisInstead
 workshop_required_items: n/a, not released yet (pre-publication 0.1.0 only; owner decision 2026-11-10 "on verra en 1.0.0"; manual pose at prepareRelease/publish)
 publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
-tested_on: 2026-11-10 pickle 5b39256 (DLL 61e65ee28264): v11 avec neolithic et nps 133/133, restart pair v10 green on the previous DLL (persistence code unchanged), v9 avec RIMMSQOL green on the previous DLL; French and English in game not played
+tested_on: 2026-11-12 pickle 2754de8 (DLL 61e65ee28264): English 7/7 (v13) and French 7/7 (v12), no raw key in Player.log; v11 avec neolithic et nps 133/133, v10 restart pair green on the previous DLL, v9 avec RIMMSQOL green on the previous DLL; clipping not checked (no capture)
 code_review_sha: d92e5f9f1307eb2ba0c8ac3941a2b6dec4a8f3b7
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
