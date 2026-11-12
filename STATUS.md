@@ -36,6 +36,8 @@ updated: 2026-11-10
 protocols_read_sha: 9481d090854f082b638e84ad647a202fec7de6d2
 ---
 
+Art/Icons/ModIcon-source.png (1,212,318 bytes, untrimmed icon original) removed 2026-11-12 on Audit's order: Art/ModIcon-source.png is the source; the original stays in history at 420d9ee. Mod/desktop.ini restored (git-ignored, AUDIT 10.c bis).
+
 ## writeTests record (AUDIT.md 7): 2026-11-03, revision 0ed0ebf plus the Tests/ changes of this commit
 
 - Scenarios (7.a): `Tests/TESTING.md`, one row per promised behaviour (library load, aliases only while data loads, declared pair, proposed pair stays off, runtime opt-in by caller, ambiguity, settings window, hidden shortcut, RIMMSQOL, restart persistence), plus the list of what is not covered. `PUBLICATION.md` does not exist yet (written at `writeDocs`); the rows follow the About.xml description and README.
