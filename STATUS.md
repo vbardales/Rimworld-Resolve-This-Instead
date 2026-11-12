@@ -25,7 +25,7 @@ code_review_sha: d92e5f9f1307eb2ba0c8ac3941a2b6dec4a8f3b7
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
-  - ticket: French pass (01-loading, 04-settings-window, 05-shortcut, -Language French) filed 2026-11-10 on 02b87fe (DLL 61e65ee28264): 20261110-203439-273-9cde, evidence Tests/Pickle/Inbox/v12-french; wait for RUN_DONE, do not touch Mod/ or Source/; then read Player.log for raw keys and accented fallback (PICKLE.md "Lecture d une interface traduite"), 8.h/8.i, 8.n
+  - French pass 20261110-203439-273-9cde: green 7/7, exit 0, found in Inbox/v12-french on 2026-11-12 (Player.log: no raw RTI_ key, no missing-key line); still to do: look at the screenshots/report for accented fallback and clipping (PICKLE.md "Lecture d une interface traduite"), then 8.h/8.i, 8.n; /review-translation before Virginie's next French review (AUDIT 6.g)
   - defect (code review 2026-11-10, logged not fixed): #4 caller walk may read Assembly-CSharp if Harmony maps replacement frames to originals (runtime opt-in would silently fail; confirm with an opted-in caller); #7 a proposal A->B with only C loaded never listed, name-only rules skip ambiguity check; #8 UTI data read in the constructor can be stale or half-written (move to BeginLoading, FileShare.ReadWrite); #9 ActiveMod scans the mod list per alias hit (index it); #10 Loading cleared only by one prefix (add a backstop postfix); UtiPath logged in full with debug on
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
   - unverified: Pickle not replayed on the tree with the debug logging; settings_audit reset to partial because an option (debug logs) was added
@@ -33,7 +33,7 @@ remaining:
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
 updated: 2026-11-10
-protocols_read_sha: a7e8aac7cf5e8de6134ff708b0b88530f6738417
+protocols_read_sha: 9481d090854f082b638e84ad647a202fec7de6d2
 ---
 
 ## writeTests record (AUDIT.md 7): 2026-11-03, revision 0ed0ebf plus the Tests/ changes of this commit
