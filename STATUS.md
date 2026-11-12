@@ -206,7 +206,7 @@ that knows its own code, so its declaration outranks the library's default; the 
 snapshot from Use This Instead only proposes pairs. Format and file location to design (not yet): one file per mod,
 listing `old packageId (and names) -> successor packageId, compatible: yes/no/unknown`.
 
-`Poc/` (this folder, not a repository): a throwaway mod that tests the theory on a pair we own (Virginie, 2026-09-26): Adaptive Storage Neolithic Module `adaptive.storage.neolithic` (original, Workshop 3033901895, installed, must be disabled for the test) -> our Adaptive Storage Neolithic Renew `nelim.adaptivestorageneolithic` (3806101377, installed). Rebuilt on that pair; the Nature's Pretty Sweet case stays the motivating one for Alpha Mythology Renew. Built (Release, 0
+**Superseded and removed (2026-11-12):** the library passes (lib-v8, restart pair v10, neolithic and nps v11 green) answered the feasibility question; `Tests/Poc/` deleted, never committed. Original note: `Poc/` (this folder, not a repository): a throwaway mod that tests the theory on a pair we own (Virginie, 2026-09-26): Adaptive Storage Neolithic Module `adaptive.storage.neolithic` (original, Workshop 3033901895, installed, must be disabled for the test) -> our Adaptive Storage Neolithic Renew `nelim.adaptivestorageneolithic` (3806101377, installed). Rebuilt on that pair; the Nature's Pretty Sweet case stays the motivating one for Alpha Mythology Renew. Built (Release, 0
 warnings, 0 errors), **not run**: nothing launched by this session. See `Poc/README.md` for what it asserts and how Virginie
 runs it; its result (Player.log `[RTI-POC]` lines) is what confirms or refutes the feasibility read above.
 

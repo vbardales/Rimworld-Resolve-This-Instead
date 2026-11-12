@@ -7,7 +7,7 @@
 evidence/
 
 # Build intermediates and tooling
-.build/
+Build/
 bin/
 obj/
 .vs/
