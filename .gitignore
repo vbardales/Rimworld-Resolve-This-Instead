@@ -4,6 +4,7 @@
 
 # Test evidence stays on disk, never in git. Short text history lives in docs/runs/, one line per run.
 **/Tests/Pickle/Evidence/
+Tests/Pickle/Evidence/
 evidence/
 
 # Build intermediates and tooling
@@ -17,3 +18,5 @@ obj/
 Thumbs.db
 desktop.ini
 Art/.render/
+Tests/Pickle/Inbox/
+Tests/Pickle/Parked/
