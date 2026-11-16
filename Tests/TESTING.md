@@ -7,7 +7,7 @@ One scenario per behaviour the mod promises (About.xml description, README). Exp
 | Check | Command | Expected |
 | --- | --- | --- |
 | Engine unit tests (alias model, catalog, resolver, embedded file, Use This Instead data parser) | `dotnet run -c Release` in `Tests/UnitTests` | `ALL 57 CHECKS PASSED` (real-data checks are skipped unless `RTI_UTI_JSON` points at a `replacements.json`: 61 then) |
-| Mod-specific static checks (identity, dependencies, hidden shortcut, worker class) | `powershell -NoProfile -ExecutionPolicy Bypass -File Tests\Check-Mod.ps1` | `ALL 7 CHECKS PASSED` |
+| Own values (identity, dependencies, hidden shortcut, worker class) | `powershell -NoProfile -ExecutionPolicy Bypass -File Tests\Rule-OwnValues.ps1` | `Rule-OwnValues: 7 checks passed` |
 | Shared checks | `Check-ModBasics.ps1`, `Check-Translations.ps1`, `Check-Steps.ps1` (protocols `scripts/`) | PASS |
 
 ## Functional scenarios (Pickle, `Tests/Pickle/Mod/Pickle/Features`)

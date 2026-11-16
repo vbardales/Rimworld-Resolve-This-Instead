@@ -12,7 +12,7 @@ translation_en: complete
 translation_fr: complete
 audit_at: 2026-10-01
 audit_revision: d5223bc plus uncommitted (debug logging in Source/Mod, two new keys EN/FR, rebuilt DLL 79855596cc0e, FRENCH_REVIEW.md, docs)
-automated_tests: engine 57/57 without data (dotnet run, 2026-10-01; 61/61 with data on 2026-09-26); static checks 18/18 (Tests/Check-Mod.ps1, 2026-10-01)
+automated_tests: engine 57/57 without data (dotnet run, 2026-10-01; 61/61 with data on 2026-09-26); static checks 18/18 (Tests/Rule-OwnValues.ps1, 2026-10-01)
 functional_tests: Pickle played green on 2026-09-27 (lib-v8, three passes, exit 0, DLL before the debug logging) and the restart pair green (lib-v6); not replayed on the current tree; French not played
 licence: MIT (decided by the owner 2026-10-01; LICENSE added; data source Use This Instead is MIT too)
 licence_at: 2026-10-01; no upstream licence conflict (emipa606/UseThisInstead MIT, MiniJSON MIT notice kept)
@@ -48,12 +48,12 @@ No Steam mod aliases a replaced packageId to its successor (12 search terms, abo
 ## writeTests record (AUDIT.md 7): 2026-11-03, revision 0ed0ebf plus the Tests/ changes of this commit
 
 - Scenarios (7.a): `Tests/TESTING.md`, one row per promised behaviour (library load, aliases only while data loads, declared pair, proposed pair stays off, runtime opt-in by caller, ambiguity, settings window, hidden shortcut, RIMMSQOL, restart persistence), plus the list of what is not covered. `PUBLICATION.md` does not exist yet (written at `writeDocs`); the rows follow the About.xml description and README.
-- Automated, rerun 2026-11-03 on library DLL sha256 `79855596cc0e` (unchanged since 2026-10-01, newer than every file under `Source/`): engine unit tests `dotnet run -c Release` in `Tests/UnitTests` 57 of 57 passed (real-data checks skipped, no `RTI_UTI_JSON`); `Tests/Check-Mod.ps1` 7 of 7; `Check-ModBasics` PASS; `Check-Translations` PASS; `Check-Steps` PASS (26 patterns, 72 step lines, none unused) (7.b, 7.f).
+- Automated, rerun 2026-11-03 on library DLL sha256 `79855596cc0e` (unchanged since 2026-10-01, newer than every file under `Source/`): engine unit tests `dotnet run -c Release` in `Tests/UnitTests` 57 of 57 passed (real-data checks skipped, no `RTI_UTI_JSON`); `Tests/Rule-OwnValues.ps1` 7 of 7; `Check-ModBasics` PASS; `Check-Translations` PASS; `Check-Steps` PASS (26 patterns, 72 step lines, none unused) (7.b, 7.f).
 - XML tests (7.c): `Check-ModBasics` (5 XML files, 1 def) and `Check-Translations`; no XML patches in `Mod/`.
 - Pickle suites (7.d): 9 feature files, 24 scenarios, not played on this tree. New scenario "Use This Instead's data was found" in `01-loading`; the three unused step patterns removed (two with no scenario to serve). Steps DLL rebuilt, sha256 `81c48c0335b9`. Local steps declared to NPT through TM on 2026-11-03 (no NPT session in the agent list). `@requires`: `nelim.adaptivestorageneolithic`, `mlie.naturesprettysweet`, `MalteSchulze.RIMMSqol` + `nelim.pickletools.rimmsqol`, `nelim.resolvethisinstead.testconsumer` (staged from `Tests/Pickle/Consumer`), each with its map (`Tests/Pickle/README.md`).
 - Not applicable (7.e): nothing declared not applicable.
 - Translations (7.g): complete, French reviewed by Virginie 2026-11-03.
-- Local scripts: `Tests/Check-Mod.ps1` justified in `scripts/LOCAL_SCRIPTS.md`, awaiting Audit's Validated.
+- Local scripts: `Tests/Rule-OwnValues.ps1` justified in `scripts/LOCAL_SCRIPTS.md`, awaiting Audit's Validated.
 
 ## Translation audit (AUDIT.md 6, TRANSLATIONS.md): 2026-11-03, revision b3c11d7 plus the two French fixes below
 
@@ -76,7 +76,7 @@ Inventory and decision (5.a, 5.b): settings are useful, since the library cannot
 - "Restore defaults" button; data status line (Use This Instead version, rule count, declared pairs) and a problems line.
 - Not exposed on purpose: provider modules, load-phase boundaries, trusted-caller opt-in (declared by the consuming mod, never by the player).
 
-Access (5.c, 5.d): Mod options -> Resolve This Instead (`SettingsCategory`), no customization mod needed. MainButtons shortcut `RTI_Settings`: `buttonVisible` false (checked by `Tests/Check-Mod.ps1`, 7 of 7 on 2026-11-02), worker class `MainButtonWorker_ResolveThisInsteadSettings` opens the same window and the same `Settings` instance.
+Access (5.c, 5.d): Mod options -> Resolve This Instead (`SettingsCategory`), no customization mod needed. MainButtons shortcut `RTI_Settings`: `buttonVisible` false (checked by `Tests/Rule-OwnValues.ps1`, 7 of 7 on 2026-11-02), worker class `MainButtonWorker_ResolveThisInsteadSettings` opens the same window and the same `Settings` instance.
 
 Usage review (5.e): checkboxes and one chooser only, so no free input and no boundary validation (the "Input validation" row is `n/a`). Labels, tooltips and the restart notice use stable `RTI_*` keys in English and French. Empty list shows `RTI_ListEmpty`, the list scrolls. `debugLogs` defaulted to true while the crash was being chased: fixed 2026-11-03, default false (code change, DLL `bf62ca694b24`).
 
@@ -108,4 +108,4 @@ Commands: `powershell -NoProfile -ExecutionPolicy Bypass -File Tests\Check-Mod.p
 - 4.f animal-adding mods: not applicable (library, no animal).
 
 
-Older journal (2026-09-26 to 2026-10-01: design, feasibility, decisions, audit): docs/runs/status-journal-2026-09-10.md
+Older journal (2026-09-26 to 2026-10-01: design, feasibility, decisions, audit): Docs/runs/status-journal-2026-09-10.md
