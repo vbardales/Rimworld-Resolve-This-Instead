@@ -36,7 +36,7 @@ remaining:
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
 updated: 2026-11-16
-protocols_read_sha: a7f8c05ba5d9d62f8f2ec9f52f0b5944a2f4c92c
+protocols_read_sha: 2c21c57febd93f733423227b361c7fc4ad079a2f
 ---
 
 Art/Icons/ModIcon-source.png (1,212,318 bytes, untrimmed icon original) removed 2026-11-12 on Audit's order: Art/ModIcon-source.png is the source; the original stays in history at 420d9ee. Mod/desktop.ini restored (git-ignored, AUDIT 10.c bis).
