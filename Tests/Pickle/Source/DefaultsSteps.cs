@@ -43,9 +43,26 @@ namespace ResolveThisInstead.PickleSteps
             ctx.Require(state == "logged" || state == "suppressed", "state must be 'logged' or 'suppressed'");
             string probe = "pickle-debug-probe-" + Guid.NewGuid().ToString("N");
             Runtime.Debug(probe);
-            // RimWorld's Log.Message does not raise Unity's logMessageReceived (first run, 2026-11-12: the line reached Player.log, the callback saw nothing): read the game's own message queue.
-            bool seen = Log.Messages.Any(m => m.text != null && m.text.Contains(probe));
+            // Neither Unity's logMessageReceived nor Verse.Log.Messages sees what Pickle routes to Player.log (runs 2026-11-12 and 2026-11-16: the line was in Player.log, both captures empty).
+            // Read the log file as Pickle Tools does, with a short wait: the file is written by another thread.
+            bool seen = false;
+            for (int i = 0; i < 10 && !seen; i++)
+            {
+                System.Threading.Thread.Sleep(100);
+                seen = LogFileHolds(probe);
+            }
             ctx.Assert(seen == (state == "logged"), $"a debug line was {(seen ? "logged" : "suppressed")}, expected {state}");
+        }
+
+        private static bool LogFileHolds(string fragment)
+        {
+            string path = UnityEngine.Application.consoleLogPath;
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return false;
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd().Contains(fragment);
+            }
         }
 
         [Given("Resolve This Instead has stored choices and debug logs on")]
