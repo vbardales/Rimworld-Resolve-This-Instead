@@ -27,7 +27,7 @@ evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 rest
 remaining:
   - ecosystem (2.h) done 2026-11-16, see the Ecosystem section; upstream_synced written 2026-11-16 (3.0: upstream Source change since 2026-09-26 is d24d2ec, removes example comments from Json.cs, nothing to integrate)
   - playTests: 8.c 8.g 8.i 8.k open (8.h done 2026-11-16: debug switch, restore defaults, old settings file green in game v16; English 7/7, French 7/7; 8.d n/a no @review scenario)
-  - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
+  - test shape: Tests/Rule-OwnValues.ps1 done 2026-11-16 (7 checks, LOCAL_SCRIPTS row pushed); still to do: CI/CD generates Test-Mod.ps1 + .github (generator needs the 0.1.0 junction in Mods/ and a config; this mod has no .github yet), then tell Audit (validate + stamp)
   - French pass 20261110-203439-273-9cde: green 7/7, exit 0, found in Inbox/v12-french on 2026-11-12 (Player.log: no raw RTI_ key, no missing-key line); still to do: look at the screenshots/report for accented fallback and clipping (PICKLE.md "Lecture d une interface traduite"), then 8.h/8.i, 8.n; /review-translation before Virginie's next French review (AUDIT 6.g)
   - defect (code review 2026-11-10, logged not fixed): #4 caller walk may read Assembly-CSharp if Harmony maps replacement frames to originals (runtime opt-in would silently fail; confirm with an opted-in caller); #7 a proposal A->B with only C loaded never listed, name-only rules skip ambiguity check; #8 UTI data read in the constructor can be stale or half-written (move to BeginLoading, FileShare.ReadWrite); #9 ActiveMod scans the mod list per alias hit (index it); #10 Loading cleared only by one prefix (add a backstop postfix); UtiPath logged in full with debug on
   - unverified: the crash reported 2026-10-01 ("RTI plante"): cause not established; debug logging added to find it (Player.log needed)
@@ -95,7 +95,7 @@ Expected and observed, per MOD_SETTINGS.md section 4 (observed = last played run
 | Shortcut integration | Green: 06-rimmsqol (RIMMSQOL only, no other customization mod claimed). |
 | Runtime robustness | Not played on the current DLL: the exception logging added 2026-10-01 has never run in a game. |
 
-Commands: `powershell -NoProfile -ExecutionPolicy Bypass -File Tests\Check-Mod.ps1`; `dotnet run -c Release` in `Tests/UnitTests` (57 of 57 without data, 2026-10-01); Pickle tickets at `playTests`.
+Commands: `powershell -NoProfile -ExecutionPolicy Bypass -File Tests\Rule-OwnValues.ps1`; `dotnet run -c Release` in `Tests/UnitTests` (57 of 57 without data, 2026-10-01); Pickle tickets at `playTests`.
 
 ## 2026-11-02: Dependencies (AUDIT.md 4.g), revision b3c11d7
 
