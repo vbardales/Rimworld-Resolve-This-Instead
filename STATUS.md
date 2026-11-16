@@ -18,13 +18,14 @@ licence: MIT (decided by the owner 2026-10-01; LICENSE added; data source Use Th
 licence_at: 2026-10-01; no upstream licence conflict (emipa606/UseThisInstead MIT, MiniJSON MIT notice kept)
 upstream_mod_remotes:
   - https://github.com/emipa606/UseThisInstead
+upstream_synced: 2026-11-16 emipa606/UseThisInstead@956fb42
 workshop_required_items: n/a, not released yet (pre-publication 0.1.0 only; owner decision 2026-11-10 "on verra en 1.0.0"; manual pose at prepareRelease/publish)
 publishedFileId: 3811295032 (0.1.0 pre-publication, 2026-10-01; Mod/About/PublishedFileId.txt)
 tested_on: 2026-11-12 pickle 2754de8 (DLL 61e65ee28264): English 7/7 (v13) and French 7/7 (v12), no raw key in Player.log; v11 avec neolithic et nps 133/133, v10 restart pair green on the previous DLL, v9 avec RIMMSQOL green on the previous DLL; clipping not checked (no capture)
 code_review_sha: d92e5f9f1307eb2ba0c8ac3941a2b6dec4a8f3b7
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
-  - ecosystem (2.h) done 2026-11-16, see the Ecosystem section; upstream-sync WARN (3.0): write upstream_synced for emipa606/UseThisInstead after a fetch
+  - ecosystem (2.h) done 2026-11-16, see the Ecosystem section; upstream_synced written 2026-11-16 (3.0: upstream Source change since 2026-09-26 is d24d2ec, removes example comments from Json.cs, nothing to integrate)
   - playTests carries on after PiI: 8.c 8.g 8.h 8.i 8.k open (v15 debug switch ticket 5559 queued, English 7/7 and French 7/7 green)
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
   - French pass 20261110-203439-273-9cde: green 7/7, exit 0, found in Inbox/v12-french on 2026-11-12 (Player.log: no raw RTI_ key, no missing-key line); still to do: look at the screenshots/report for accented fallback and clipping (PICKLE.md "Lecture d une interface traduite"), then 8.h/8.i, 8.n; /review-translation before Virginie's next French review (AUDIT 6.g)
