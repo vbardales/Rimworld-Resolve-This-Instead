@@ -1,7 +1,7 @@
 using System;
 using System.IO;
+using System.Linq;
 using RimWorks.Pickle;
-using UnityEngine;
 using Verse;
 
 namespace ResolveThisInstead.PickleSteps
@@ -42,17 +42,9 @@ namespace ResolveThisInstead.PickleSteps
         {
             ctx.Require(state == "logged" || state == "suppressed", "state must be 'logged' or 'suppressed'");
             string probe = "pickle-debug-probe-" + Guid.NewGuid().ToString("N");
-            bool seen = false;
-            Application.LogCallback handler = (text, stack, type) => { if (text != null && text.Contains(probe)) seen = true; };
-            Application.logMessageReceived += handler;
-            try
-            {
-                Runtime.Debug(probe);
-            }
-            finally
-            {
-                Application.logMessageReceived -= handler;
-            }
+            Runtime.Debug(probe);
+            // RimWorld's Log.Message does not raise Unity's logMessageReceived (first run, 2026-11-12: the line reached Player.log, the callback saw nothing): read the game's own message queue.
+            bool seen = Log.Messages.Any(m => m.text != null && m.text.Contains(probe));
             ctx.Assert(seen == (state == "logged"), $"a debug line was {(seen ? "logged" : "suppressed")}, expected {state}");
         }
 
