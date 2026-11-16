@@ -1,1 +1,1 @@
-<Project><PropertyGroup><BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)../../../.build/pickle-obj/</BaseIntermediateOutputPath></PropertyGroup></Project>
+<Project><PropertyGroup><BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)../../../Build/pickle-obj/</BaseIntermediateOutputPath></PropertyGroup></Project>
