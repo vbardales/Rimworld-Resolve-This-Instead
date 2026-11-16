@@ -26,11 +26,13 @@ Staging: `wsl-ids.map` (Use This Instead), `wsl-deps.avec-neolithic-nps.map`, `w
 | The shortcut is hidden, never greyed | 05-shortcut | clean configuration | read the MainButtons list, then reveal it | hidden; once revealed it draws, enables and opens the same settings |
 | RIMMSQOL reveals the shortcut | 06-rimmsqol | RIMMSQOL staged | list, reveal, open | listed hidden; revealed it opens the same settings |
 | Choices persist across a restart | 07-restart-write then 08-restart-read | declared pair | disable an alias, pick a successor, restart | both survived, guarded content and ambiguity follow |
+| Debug logs are off by default, the switch gates the debug lines | 10-settings-defaults | clean configuration | read the setting, turn the switch on and off as the checkbox does, log a probe | off by default; line in Player.log only while on |
+| Restore defaults empties every choice | 10-settings-defaults | stored choices and debug logs on | restore defaults as the button does | no choice stored, debug logs off |
+| A settings file from before the debug option loads | 10-settings-defaults | file with only the enabled dictionary | read it as the game reads a mod settings file | debugLogs false, picks empty, the stored choice kept |
 
 ## Not covered yet (stated, not hidden)
 
-- "Debug logs" toggle, "Restore defaults", and the exception logging added 2026-10-01 never ran in a game.
+- The exception logging added 2026-10-01 around every Harmony patch never ran on a failure in a game (nothing throws).
 - English and French interface in game (raw keys, fallback text, clipping): played at `playTests`.
 - The real Lord of the Rims Elves ambiguity (needs a download and the owner's go); the synthetic pair in 09-ambiguity stands in.
 - The crash reported 2026-10-01 has no scenario: the cause is not established.
-- Settings migration from a file without `debugLogs`.
