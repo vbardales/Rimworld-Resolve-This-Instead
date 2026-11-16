@@ -43,7 +43,7 @@ Art/Icons/ModIcon-source.png (1,212,318 bytes, untrimmed icon original) removed 
 
 ## Ecosystem (AUDIT 1.a and 2.h): PiI report 2026-11-16, docs/inventory/ecosystem-steam/ResolveThisInstead.md
 
-No Steam mod aliases a replaced packageId to its successor (12 search terms, about 60 hits). Use This Instead 3396308787 (alive, updated 2026-11-12, 1.4 to 1.7) is the only relative: it warns and links, it does not alias; no patch or integration of it. Two Russian translations of Use This Instead only (3530981142, 3819054025), not translations of this mod. Verdict: the niche is empty, no duplicate, nothing to integrate at localize. No subscription made.
+No Steam mod aliases a replaced packageId to its successor (12 search terms, about 60 hits). Use This Instead 3396308787 (alive, updated 2026-11-12, 1.4 to 1.7) is the only relative: it warns and links, it does not alias; no patch or integration of it. Verdict: the niche is empty, no duplicate, nothing to integrate at localize (the Russian translations of Use This Instead found by PiI translate its texts, not ours, and are not used). No subscription made.
 
 ## writeTests record (AUDIT.md 7): 2026-11-03, revision 0ed0ebf plus the Tests/ changes of this commit
 
