@@ -5,7 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: PiI
+workflow_stage: playTests[1.0.0]
 settings_audit: partial
 localization: complete
 translation_en: complete
@@ -26,7 +26,7 @@ code_review_sha: d92e5f9f1307eb2ba0c8ac3941a2b6dec4a8f3b7
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
   - ecosystem (2.h) done 2026-11-16, see the Ecosystem section; upstream_synced written 2026-11-16 (3.0: upstream Source change since 2026-09-26 is d24d2ec, removes example comments from Json.cs, nothing to integrate)
-  - playTests carries on after PiI: 8.c 8.g 8.h 8.i 8.k open (v15 debug switch ticket 5559 queued, English 7/7 and French 7/7 green)
+  - playTests: 8.c 8.g 8.h 8.i 8.k open (ticket 5559 debug switch queued; English 7/7 and French 7/7 green, 8.d n/a: no @review scenario)
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
   - French pass 20261110-203439-273-9cde: green 7/7, exit 0, found in Inbox/v12-french on 2026-11-12 (Player.log: no raw RTI_ key, no missing-key line); still to do: look at the screenshots/report for accented fallback and clipping (PICKLE.md "Lecture d une interface traduite"), then 8.h/8.i, 8.n; /review-translation before Virginie's next French review (AUDIT 6.g)
   - defect (code review 2026-11-10, logged not fixed): #4 caller walk may read Assembly-CSharp if Harmony maps replacement frames to originals (runtime opt-in would silently fail; confirm with an opted-in caller); #7 a proposal A->B with only C loaded never listed, name-only rules skip ambiguity check; #8 UTI data read in the constructor can be stale or half-written (move to BeginLoading, FileShare.ReadWrite); #9 ActiveMod scans the mod list per alias hit (index it); #10 Loading cleared only by one prefix (add a backstop postfix); UtiPath logged in full with debug on
