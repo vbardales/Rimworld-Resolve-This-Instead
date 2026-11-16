@@ -103,6 +103,7 @@ namespace ResolveThisInstead
         public static string UtiVersion;
         public static int UtiRules;
 
+        private static bool utiRead;
         private static HashSet<string> loaded = new HashSet<string>();
         private static readonly Dictionary<string, string> idCache = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> nameCache = new Dictionary<string, string>();
@@ -119,20 +120,27 @@ namespace ResolveThisInstead
 
             var catalog = new AliasCatalog();
             ReadEmbeddedFiles(catalog);
-            ReadUtiData(catalog);
             Catalog = catalog;
             Resolver = new AliasResolver(catalog);
             ClearCaches();
             Debug("Initialize: " + loaded.Count + " loaded package ids, " + trustedForRuntime.Count + " trusted assemblies, " + Choices.Enabled.Count + " saved toggles, " + Choices.Picks.Count + " saved picks.");
-            Log.Message(LogTag + "ready: " + catalog.Count + " replacements known, " + Embedded.Count + " mod(s) embed a file, Use This Instead's data "
-                + (UtiPath == null ? "not found" : "version " + UtiVersion) + ".");
         }
 
-        // Called when the game starts turning XML into data (LoadModXML, after every Mod constructor has run).
+        // Called when the game starts turning XML into data (LoadModXML, after every Mod constructor has run). Use This Instead's data is
+        // read here, not in our constructor: its own constructor may have refreshed the file by now. Nothing answers before this point,
+        // so adding rules to the catalog here races with no reader. Hot reload calls this again: the data is read once only.
         public static void BeginLoading()
         {
+            if (!utiRead)
+            {
+                utiRead = true;
+                ReadUtiData(Catalog);
+                ClearCaches();
+            }
             Loading = true;
             PastConstructionPhase = true;
+            Log.Message(LogTag + "ready: " + Catalog.Count + " replacements known, " + Embedded.Count + " mod(s) embed a file, Use This Instead's data "
+                + (UtiPath == null ? "not found" : "version " + UtiVersion) + ".");
             Info("loading started: aliases answer the engine (" + Catalog.Count + " replacements).");
         }
 
@@ -140,6 +148,10 @@ namespace ResolveThisInstead
         // answers only to a mod's own code (MayAnswer), never unconditionally.
         public static void EndLoading()
         {
+            if (!Loading)
+            {
+                return;
+            }
             Loading = false;
             lock (cacheLock)
             {
@@ -242,6 +254,16 @@ namespace ResolveThisInstead
             }
         }
 
+        // Use This Instead may be writing its file as we read it: never lock it out, and never take its lock.
+        private static string ReadSharedText(string path)
+        {
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         private static void ReadUtiData(AliasCatalog catalog)
         {
             UtiPath = UtiData.Locate(LoadedModManager.RunningMods.Select(m => new KeyValuePair<string, string>(m.PackageId, m.RootDir)), File.Exists);
@@ -253,7 +275,7 @@ namespace ResolveThisInstead
             }
             try
             {
-                UtiData.ParseResult data = UtiData.Parse(File.ReadAllText(UtiPath));
+                UtiData.ParseResult data = UtiData.Parse(ReadSharedText(UtiPath));
                 catalog.AddRange(data.Rules);
                 Debug("Use This Instead data read from " + UtiPath + ".");
                 UtiVersion = data.Version;
@@ -312,16 +334,27 @@ namespace ResolveThisInstead
             }
         }
 
+        // Indexed once: the active list cannot change while the game runs (a change restarts it), and this is asked for every alias hit.
+        private static Dictionary<string, ModMetaData> activeIndex;
+
         public static ModMetaData ActiveMod(string normalizedPackageId)
         {
-            foreach (ModMetaData mod in ModsConfig.ActiveModsInLoadOrder)
+            Dictionary<string, ModMetaData> index = activeIndex;
+            if (index == null)
             {
-                if (PackageIds.Normalize(mod.PackageId) == normalizedPackageId)
+                index = new Dictionary<string, ModMetaData>();
+                foreach (ModMetaData mod in ModsConfig.ActiveModsInLoadOrder)
                 {
-                    return mod;
+                    string key = PackageIds.Normalize(mod.PackageId);
+                    if (!index.ContainsKey(key))
+                    {
+                        index[key] = mod;
+                    }
                 }
+                activeIndex = index;
             }
-            return null;
+            index.TryGetValue(normalizedPackageId, out ModMetaData found);
+            return found;
         }
     }
 }

@@ -324,6 +324,28 @@ namespace ResolveThisInstead
         }
     }
 
+    // Backstop: a hot reload (dev mode) runs LoadModXML again and never reaches CallAll, so the aliases would stay on for the engine for good.
+    // Normal loading ends at CallAll above; EndLoading does nothing when the phase is already over.
+    [HarmonyPatch(typeof(LoadedModManager), nameof(LoadedModManager.LoadAllActiveMods))]
+    public static class LoadedModManager_LoadAllActiveMods_Patch
+    {
+        public static void Finalizer(bool hotReload)
+        {
+            if (!hotReload)
+            {
+                return;
+            }
+            try
+            {
+                Runtime.EndLoading();
+            }
+            catch (System.Exception ex)
+            {
+                Runtime.Failure("EndLoading (hot reload)", ex);
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(StaticConstructorOnStartupUtility), nameof(StaticConstructorOnStartupUtility.CallAll))]
     public static class StaticConstructorOnStartupUtility_CallAll_Patch
     {
