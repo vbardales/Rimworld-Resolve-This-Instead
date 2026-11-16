@@ -5,7 +5,7 @@ repo: https://github.com/vbardales/Rimworld-Resolve-This-Instead
 visibility: public
 local_path: C:/Users/nelim/Documents/rimworld/ResolveThisInstead
 git_isolation: standalone; own .git and origin, public; ignored (and never tracked) in the parent monorepo
-workflow_stage: playTests[1.0.0]
+workflow_stage: PiI
 settings_audit: partial
 localization: complete
 translation_en: complete
@@ -24,6 +24,8 @@ tested_on: 2026-11-12 pickle 2754de8 (DLL 61e65ee28264): English 7/7 (v13) and F
 code_review_sha: d92e5f9f1307eb2ba0c8ac3941a2b6dec4a8f3b7
 evidence: Tests/Pickle/Evidence (disk only, 1 MB: lib-v8 x3 passes + lib-v6 restart pair); history in docs/runs/history.md
 remaining:
+  - ecosystem (AUDIT 2.h, replay 2026-11-16 first open): no ecosystem-steam file for this mod yet; ask PiI (ECOSYSTEM? message, skill mod-workflow:ecosystem), copy the summary into an Ecosystem section of STATUS.md; also upstream-sync WARN (3.0): upstream_mod_remotes lists emipa606/UseThisInstead, write upstream_synced after a fetch
+  - playTests carries on after PiI: 8.c 8.g 8.h 8.i 8.k open (v15 debug switch ticket 5559 queued, English 7/7 and French 7/7 green)
   - test shape: convert to Tests/Rule-OwnValues.ps1 + generated Test-Mod.ps1 (AGENTS.md "Mod tests shape"; LOCAL-SCRIPTS-REVIEW-2026-11-04.md), then tell Audit
   - French pass 20261110-203439-273-9cde: green 7/7, exit 0, found in Inbox/v12-french on 2026-11-12 (Player.log: no raw RTI_ key, no missing-key line); still to do: look at the screenshots/report for accented fallback and clipping (PICKLE.md "Lecture d une interface traduite"), then 8.h/8.i, 8.n; /review-translation before Virginie's next French review (AUDIT 6.g)
   - defect (code review 2026-11-10, logged not fixed): #4 caller walk may read Assembly-CSharp if Harmony maps replacement frames to originals (runtime opt-in would silently fail; confirm with an opted-in caller); #7 a proposal A->B with only C loaded never listed, name-only rules skip ambiguity check; #8 UTI data read in the constructor can be stale or half-written (move to BeginLoading, FileShare.ReadWrite); #9 ActiveMod scans the mod list per alias hit (index it); #10 Loading cleared only by one prefix (add a backstop postfix); UtiPath logged in full with debug on
@@ -32,8 +34,8 @@ remaining:
   - unverified: French and English in game (raw keys, fallback text, clipping), at playTests
   - unverified: the aliases do not leak once loading is over beyond what v8 scenarios assert; real Elves ambiguity (needs a download, owner's go)
   - owner only: telling Mlie when tests start; the Preview; the Workshop page before any consumer's 1.0.0; PRs to emipa606/UseThisInstead only with her agreement (none planned yet)
-updated: 2026-11-10
-protocols_read_sha: 9481d090854f082b638e84ad647a202fec7de6d2
+updated: 2026-11-16
+protocols_read_sha: 75fdacff83d2870211bdc01ab64b445a2bcfce5a
 ---
 
 Art/Icons/ModIcon-source.png (1,212,318 bytes, untrimmed icon original) removed 2026-11-12 on Audit's order: Art/ModIcon-source.png is the source; the original stays in history at 420d9ee. Mod/desktop.ini restored (git-ignored, AUDIT 10.c bis).
